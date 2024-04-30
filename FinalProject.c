@@ -19,39 +19,46 @@ int main() {
 
 void getMenu(){
 
-	int menuoption;
+	int menuOption;
 	
-	printf("***IMAGE MENU***\n");
-	printf("(1): Import image file\n");
-	printf("(2): Increase the image brightness\n");
-	printf("(3): Decrease the image brightness\n");
-	printf("(4): Crop current image\n");
-	printf("(5): Save current image to file\n");
-	printf("(6): Display current image\n");
-	printf("(0): Exit program\n");
-	printf("Please enter the number of the option you would like to choose: ");
-	scanf("%d", &menuoption);
+	do{
 	
-	switch(menuoption){
-		case 1:
-			getFile();
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-		case 4:
-			break;
-		case 5:
-			break;
-		case 6:
-			break;
-		case 0:
-			return;
-		default:
-			printf("invalid input, goodbye");
-			break;
-	}
+	
+		printf("***IMAGE MENU***\n");
+		printf("(1): Load Image\n");
+		printf("(2): Display Image\n");
+		printf("(3): Edit Image\n");
+		printf("(0): Exit program\n\n");
+		printf("Choose from one of the options above: ");
+		scanf("%d", &menuOption);
+	
+		switch(menuOption){
+			case 1:
+			
+				getFile();
+			
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			case 0:
+				return;
+			default:
+				printf("invalid input, goodbye");
+				break;
+		}
+	
+	
+	
+		}while(menuOption > 0);
+	
 	return;
 }
 
@@ -59,8 +66,8 @@ void getFile(){
 	
 	char File[MAXFILE_SIZE];
 	
-<<<<<<< HEAD
-	printf("Please enter the name of the file you would like to edit: ");
+
+	printf("What is the name of the image file: ");
 	scanf("%s", File);
 	
 	File[MAXFILE_SIZE] = '\0';
@@ -70,15 +77,19 @@ void getFile(){
 	readFilePointer = fopen(File, "r");
 	
 	if(readFilePointer == NULL){
-		printf("Unable to open file");
+		printf("Could not find an image with that file name\n");
 		return;
+	}
+	else{
+		printf("\nImage successfully loaded!\n\n");
 	}
 	
 	return;
-=======
+
 	printf("Please enter the name of the file you would like to edit: \n");
 	fgets(File, MAXFILE_SIZE, stdin);
->>>>>>> fe589ad (.)
+	
+
 	
 }
 
