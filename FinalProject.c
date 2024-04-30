@@ -60,7 +60,20 @@ void getFile(){
 	char File[MAXFILE_SIZE];
 	
 	printf("Please enter the name of the file you would like to edit: ");
-	fgets(File, MAXFILE_SIZE, stdin);
+	scanf("%s", File);
+	
+	File[MAXFILE_SIZE] = '\0';
+	
+	FILE* readFilePointer;
+	
+	readFilePointer = fopen(File, "r");
+	
+	if(readFilePointer == NULL){
+		printf("Unable to open file");
+		return;
+	}
+	
+	return;
 	
 }
 
