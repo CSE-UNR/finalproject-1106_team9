@@ -49,7 +49,7 @@ void getMenu(){
 		case 0:
 			return;
 		default:
-			printf("invalid imput, good bye");
+			printf("invalid input, goodbye");
 			break;
 	}
 	return;
@@ -59,6 +59,7 @@ void getFile(){
 	
 	char File[MAXFILE_SIZE];
 	
+<<<<<<< HEAD
 	printf("Please enter the name of the file you would like to edit: ");
 	scanf("%s", File);
 	
@@ -74,6 +75,10 @@ void getFile(){
 	}
 	
 	return;
+=======
+	printf("Please enter the name of the file you would like to edit: \n");
+	fgets(File, MAXFILE_SIZE, stdin);
+>>>>>>> fe589ad (.)
 	
 }
 
