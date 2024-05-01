@@ -6,24 +6,55 @@
 
 #define MAXSTRING_LENGTH 50
 #define MAXFILE_SIZE 500
+#define MAX_COLUMNS 500
+#define MAX_ROWS 500
+#define PICTURE_FILE "exampleimage.txt"
+int getMenu();
 
-void getFile();
-void getMenu();
+
+void getFile(int pictureColumns, int pictureRows, int pictureData[][MAX_ROWS]);
+
+
+void displayImage(int pictureColumns, int pictureRows, int pictureData[][pictureRows]);
 
 int main() {
 
-	getMenu();
+	int menuChoice;
 	
+	int columns = 0;
+	int rows = 0;
+	int mainPictureData[MAX_COLUMNS][MAX_ROWS] = {0};
+
+	do{
+	
+		menuChoice = getMenu();
+	
+			switch(menuChoice){
+			case 1:
+			
+				getFile(columns, rows, mainPictureData);
+			
+				break;
+			case 2:
+				displayImage(columns, rows, mainPictureData);
+				break;
+			case 3:
+				break;
+
+			case 0:
+				return 0;
+			default:
+				printf("invalid input, goodbye");
+				break;
+		}
+	} while(menuChoice != 0);
 	return 0;
 }
 
-void getMenu(){
+int getMenu(){
 
-	int menuOption;
-	
-	do{
-	
-	
+		int menuOption;	
+		
 		printf("***IMAGE MENU***\n");
 		printf("(1): Load Image\n");
 		printf("(2): Display Image\n");
@@ -32,37 +63,11 @@ void getMenu(){
 		printf("Choose from one of the options above: ");
 		scanf("%d", &menuOption);
 	
-		switch(menuOption){
-			case 1:
-			
-				getFile();
-			
-				break;
-			case 2:
-				break;
-			case 3:
-				break;
-			case 4:
-				break;
-			case 5:
-				break;
-			case 6:
-				break;
-			case 0:
-				return;
-			default:
-				printf("invalid input, goodbye");
-				break;
-		}
 	
-	
-	
-		}while(menuOption > 0);
-	
-	return;
+	return menuOption;
 }
 
-void getFile(){
+void getFile(int pictureColumns, int pictureRows, int pictureData[][MAX_ROWS]){
 	
 	char File[MAXFILE_SIZE];
 	
@@ -77,21 +82,42 @@ void getFile(){
 	readFilePointer = fopen(File, "r");
 	
 	if(readFilePointer == NULL){
-		printf("Could not find an image with that file name\n");
+		printf("\nCould not find an image with that file name\n\n");
 		return;
 	}
 	else{
-		printf("\nImage successfully loaded!\n\n");
+		printf("\n\nImage successfully loaded!\n\n");
+	}
+	
+	
+	for(int currentColumn = 0; currentColumn < MAX_COLUMNS; currentColumn++) {
+		for(int currentRow = 0; currentRow < MAX_ROWS; currentRow++){
+			fscanf(readFilePointer, "%d", &pictureData[currentColumn][currentRow]);
+		}
 	}
 	
 	return;
-
-	printf("Please enter the name of the file you would like to edit: \n");
-	fgets(File, MAXFILE_SIZE, stdin);
 	
+	fclose(readFilePointer);
 
 	
+
 }
+
+void displayImage(int pictureColumns, int pictureRows, int pictureData[][pictureRows]) {
+	
+
+		for(int currentColumn = 0; currentColumn < pictureColumns; currentColumn++) {
+			for(int currentRow = 0; currentRow < pictureRows; currentRow++) {
+				printf("%d ", pictureData[currentColumn][currentRow]);
+			}
+		}
+	
+	
+	
+
+
+} 
 
 	
 
