@@ -8,14 +8,14 @@
 #define MAXFILE_SIZE 500
 #define MAX_COLUMNS 500
 #define MAX_ROWS 500
-#define PICTURE_FILE "exampleimage.txt"
+
 int getMenu();
 
 
 void getFile(int pictureColumns, int pictureRows, int pictureData[][MAX_ROWS]);
 
 
-void displayImage(int pictureColumns, int pictureRows, int pictureData[][pictureRows]);
+void displayImage(int *pictureColumns, int *pictureRows, int pictureData[][pictureRows]);
 
 int main() {
 
@@ -36,7 +36,7 @@ int main() {
 			
 				break;
 			case 2:
-				displayImage(columns, rows, mainPictureData);
+				displayImage(&columns, &rows, mainPictureData);
 				break;
 			case 3:
 				break;
@@ -104,19 +104,34 @@ void getFile(int pictureColumns, int pictureRows, int pictureData[][MAX_ROWS]){
 
 }
 
-void displayImage(int pictureColumns, int pictureRows, int pictureData[][pictureRows]) {
+void displayImage(int *pictureColumns, int *pictureRows, int pictureData[][MAX_ROWS]) {
 	
 
-		for(int currentColumn = 0; currentColumn < pictureColumns; currentColumn++) {
-			for(int currentRow = 0; currentRow < pictureRows; currentRow++) {
-				printf("%d ", pictureData[currentColumn][currentRow]);
+		//for(int currentColumn = 0; currentColumn < pictureColumns; currentColumn++) {
+		//	for(int currentRow = 0; currentRow < pictureRows; currentRow++) {
+		//		printf("%d ", pictureData[currentColumn][currentRow]);
+		
+		
+	for(int currentColumn = 0; currentColumn < *pictureColumns; currentColumn++) {
+		for(int currentRow = 0; currentRow < *pictureRows; currentRow++){
+			if(pictureData[currentColumn][currentRow] == 0){
+				printf(" ");
+			}
+			else if (pictureData[currentColumn][currentRow] == 1){
+				printf(".");
+			}
+			else if (pictureData[currentColumn][currentRow] == 2){
+				printf("o");
+			}
+			else if (pictureData[currentColumn][currentRow] == 3) {
+				printf("O");
+			}
+			else{
+				printf("0");
 			}
 		}
-	
-	
-	
-
-
+	}
+	return;
 } 
 
 	
