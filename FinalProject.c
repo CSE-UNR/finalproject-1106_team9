@@ -8,8 +8,9 @@
 #define MAXFILE_SIZE 500
 #define MAX_COLUMNS 500
 #define MAX_ROWS 500
-#define PICTURE_FILE "exampleimage.txt"
+
 int getMenu();
+int editMenu();
 
 
 void getFile(int pictureColumns, int pictureRows, int pictureData[][MAX_ROWS]);
@@ -19,7 +20,7 @@ void displayImage(int pictureColumns, int pictureRows, int pictureData[][picture
 
 int main() {
 
-	int menuChoice;
+	int menuChoice, editMenuOption;
 	
 	int columns = 0;
 	int rows = 0;
@@ -39,15 +40,15 @@ int main() {
 				displayImage(columns, rows, mainPictureData);
 				break;
 			case 3:
+				editMenu();
 				break;
-
 			case 0:
 				return 0;
 			default:
 				printf("invalid input, goodbye");
 				break;
-		}
-	} while(menuChoice != 0);
+			}
+	}while(menuChoice != 0);
 	return 0;
 }
 
@@ -67,9 +68,24 @@ int getMenu(){
 	return menuOption;
 }
 
+int editMenu(){
+	int editMenuOption;
+	
+	printf("***EDIT IMAGE MENU***\n");
+	printf("(1): Crop image\n");
+	printf("(2): Increase Brightness\n");
+	printf("(3): Decrease Brightness\n");
+	printf("(0): Go back to menu\n");
+	printf("Please enter the number for the operation you would like to perform: ");
+	scanf("%d", &editMenuOption);
+	
+	return editMenuOption;
+}
+
 void getFile(int pictureColumns, int pictureRows, int pictureData[][MAX_ROWS]){
 	
 	char File[MAXFILE_SIZE];
+	int* columnnum = 0, rownum = 0;
 	
 
 	printf("What is the name of the image file: ");
@@ -91,7 +107,9 @@ void getFile(int pictureColumns, int pictureRows, int pictureData[][MAX_ROWS]){
 	
 	
 	for(int currentColumn = 0; currentColumn < MAX_COLUMNS; currentColumn++) {
+		columnnum++;
 		for(int currentRow = 0; currentRow < MAX_ROWS; currentRow++){
+			rownum++;
 			fscanf(readFilePointer, "%d", &pictureData[currentColumn][currentRow]);
 		}
 	}
@@ -105,6 +123,7 @@ void getFile(int pictureColumns, int pictureRows, int pictureData[][MAX_ROWS]){
 }
 
 void displayImage(int pictureColumns, int pictureRows, int pictureData[][pictureRows]) {
+
 	
 
 		for(int currentColumn = 0; currentColumn < pictureColumns; currentColumn++) {
@@ -112,10 +131,6 @@ void displayImage(int pictureColumns, int pictureRows, int pictureData[][picture
 				printf("%d ", pictureData[currentColumn][currentRow]);
 			}
 		}
-	
-	
-	
-
 
 } 
 
