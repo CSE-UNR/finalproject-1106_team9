@@ -133,7 +133,11 @@ void displayImage(int *pictureColumns, int *pictureRows, int pictureData[MAX_COL
 	int currentRow, currentColumn;
 		//for(int currentColumn = 0; currentColumn < pictureColumns; currentColumn++) {
 		//	for(int currentRow = 0; currentRow < pictureRows; currentRow++) {
+<<<<<<< HEAD
 				
+=======
+			printf("%d ", pictureData[currentColumn][currentRow]);
+>>>>>>> 68b39793b7d2fc0b1ae7dfeab39540bcab3222e1
 		
 		
 		
