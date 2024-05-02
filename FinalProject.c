@@ -93,7 +93,9 @@ void getFile(int pictureColumns, int pictureRows, int pictureData[MAX_COLUMNS][M
 	
 	File[MAXFILE_SIZE] = '\0';
 	
-	FILE* readFilePointer;
+	FILE *readFilePointer;
+	
+	
 	
 	readFilePointer = fopen(File, "r");
 	
@@ -112,10 +114,15 @@ void getFile(int pictureColumns, int pictureRows, int pictureData[MAX_COLUMNS][M
 		}
 		pictureData[currentColumn][currentRow] = '\0';
 	}
-	
+	for(currentColumn = 0; currentColumn != '\0'; currentColumn++) {
+		for(currentRow = 0; currentRow != '\0'; currentRow++){
+			printf("%d", pictureData[currentColumn][currentRow]);
+		}
+	}
+	fclose(readFilePointer);
 	return;
 	
-	fclose(readFilePointer);
+	
 
 	
 
@@ -123,15 +130,15 @@ void getFile(int pictureColumns, int pictureRows, int pictureData[MAX_COLUMNS][M
 
 void displayImage(int *pictureColumns, int *pictureRows, int pictureData[MAX_COLUMNS][MAX_ROWS]) {
 	
-
+	int currentRow, currentColumn;
 		//for(int currentColumn = 0; currentColumn < pictureColumns; currentColumn++) {
 		//	for(int currentRow = 0; currentRow < pictureRows; currentRow++) {
-		//		printf("%d ", pictureData[currentColumn][currentRow]);
+				
 		
 		
 		
-	for(int currentColumn = 0; currentColumn < *pictureColumns; currentColumn++) {
-		for(int currentRow = 0; currentRow < *pictureRows; currentRow++){
+	for(currentColumn = 0; currentColumn < *pictureColumns; currentColumn++) {
+		for(currentRow = 0; currentRow < *pictureRows; currentRow++){
 			if(pictureData[currentColumn][currentRow] == 0){
 				printf(" ");
 			}
