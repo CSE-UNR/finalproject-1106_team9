@@ -12,10 +12,10 @@
 int getMenu();
 int editMenu();
 
-void getFile(int pictureColumns, int pictureRows, int pictureData[MAX_COLUMNS][MAX_ROWS]);
+int getFile(int pictureColumns, int pictureRows, int pictureData[MAX_COLUMNS][MAX_ROWS]);
 
 
-void displayImage(int *pictureColumns, int *pictureRows, int pictureData[MAX_COLUMNS][MAX_ROWS]);
+void displayImage(int pictureColumns, int pictureRows, int pictureData[MAX_COLUMNS][MAX_ROWS]);
 
 int main() {
 
@@ -23,8 +23,8 @@ int main() {
 	
 	int columns;
 	int rows;
-	int mainPictureData[MAX_COLUMNS][MAX_ROWS] = {0};
-
+	int mainPictureData[MAX_COLUMNS][MAX_ROWS];
+	
 	do{
 	
 		menuChoice = getMenu();
@@ -32,11 +32,11 @@ int main() {
 			switch(menuChoice){
 			case 1:
 			
-				getFile(columns, rows, mainPictureData);
+				getFile(MAX_COLUMNS, MAX_ROWS, mainPictureData);
 			
 				break;
 			case 2:
-				displayImage(&columns, &rows, mainPictureData);
+				displayImage(MAX_COLUMNS, MAX_ROWS, mainPictureData);
 				break;
 			case 3:
 				editMenu();
@@ -82,10 +82,10 @@ int editMenu(){
 	return editMenuOption;
 }
 
-void getFile(int pictureColumns, int pictureRows, int pictureData[MAX_COLUMNS][MAX_ROWS]){
+int getFile(int pictureColumns, int pictureRows, int pictureData[][MAX_ROWS]){
 	
 	char File[MAXFILE_SIZE];
-	int currentColumn, currentRow;
+	int currentColumn, currentRow, index = 0;
 	
 
 	printf("What is the name of the image file: ");
@@ -95,54 +95,41 @@ void getFile(int pictureColumns, int pictureRows, int pictureData[MAX_COLUMNS][M
 	
 	FILE *readFilePointer;
 	
-	
-	
 	readFilePointer = fopen(File, "r");
 	
 	if(readFilePointer == NULL){
 		printf("\nCould not find an image with that file name\n\n");
-		return;
+		return 0;
 	}
 	else{
 		printf("\n\nImage successfully loaded!\n\n");
 	}
 	
 	
-	for(currentColumn = 0; currentColumn < MAX_COLUMNS; currentColumn++) {
-		for(currentRow = 0; pictureData[currentColumn][currentRow] != '\0'; currentRow++){
-			fscanf(readFilePointer, "%d", &pictureData[currentColumn][currentRow]);
-		}
-		pictureData[currentColumn][currentRow] = '\0';
+	//for(currentColumn = 0; currentColumn < MAX_COLUMNS; currentColumn++) {
+	//	for(currentRow = 0; pictureData[currentColumn][currentRow] != '\0'; currentRow++){
+	//		fscanf(readFilePointer, "%d", &pictureData[currentColumn][currentRow]);
+	//	}
+	//	pictureData[currentColumn][currentRow] = '\0';
+	//}
+	while(fscanf(readFilePointer, "%d%d", &pictureData[index][MAX_COLUMNS], &pictureData[index][MAX_ROWS]) == 2){
+		index++;
 	}
-	for(currentColumn = 0; currentColumn != '\0'; currentColumn++) {
-		for(currentRow = 0; currentRow != '\0'; currentRow++){
-			printf("%d", pictureData[currentColumn][currentRow]);
-		}
-	}
+	
 	fclose(readFilePointer);
-	return;
-	
-	
-
-	
-
+	return index;
 }
 
-void displayImage(int *pictureColumns, int *pictureRows, int pictureData[MAX_COLUMNS][MAX_ROWS]) {
+void displayImage(int pictureColumns, int pictureRows, int pictureData[][MAX_ROWS]) {
 	
 	int currentRow, currentColumn;
 		//for(int currentColumn = 0; currentColumn < pictureColumns; currentColumn++) {
 		//	for(int currentRow = 0; currentRow < pictureRows; currentRow++) {
-<<<<<<< HEAD
-				
-=======
-			printf("%d ", pictureData[currentColumn][currentRow]);
->>>>>>> 68b39793b7d2fc0b1ae7dfeab39540bcab3222e1
 		
 		
 		
-	for(currentColumn = 0; currentColumn < *pictureColumns; currentColumn++) {
-		for(currentRow = 0; currentRow < *pictureRows; currentRow++){
+	for(currentColumn = 0; currentColumn < pictureColumns; currentColumn++) {
+		for(currentRow = 0; currentRow < pictureRows; currentRow++){
 			if(pictureData[currentColumn][currentRow] == 0){
 				printf(" ");
 			}
