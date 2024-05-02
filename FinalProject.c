@@ -10,19 +10,19 @@
 #define MAX_ROWS 500
 
 int getMenu();
+int editMenu();
+
+void getFile(int pictureColumns, int pictureRows, int pictureData[MAX_COLUMNS][MAX_ROWS]);
 
 
-void getFile(int pictureColumns, int pictureRows, int pictureData[][MAX_ROWS]);
-
-
-void displayImage(int *pictureColumns, int *pictureRows, int pictureData[][pictureRows]);
+void displayImage(int *pictureColumns, int *pictureRows, int pictureData[MAX_COLUMNS][MAX_ROWS]);
 
 int main() {
 
 	int menuChoice;
 	
-	int columns = 0;
-	int rows = 0;
+	int columns;
+	int rows;
 	int mainPictureData[MAX_COLUMNS][MAX_ROWS] = {0};
 
 	do{
@@ -39,6 +39,7 @@ int main() {
 				displayImage(&columns, &rows, mainPictureData);
 				break;
 			case 3:
+				editMenu();
 				break;
 
 			case 0:
@@ -67,9 +68,24 @@ int getMenu(){
 	return menuOption;
 }
 
-void getFile(int pictureColumns, int pictureRows, int pictureData[][MAX_ROWS]){
+int editMenu(){
+	int editMenuOption;
+	
+	printf("***EDIT IMAGE MENU***\n");
+	printf("(1): Crop Image\n");
+	printf("(2): Increase Brightness\n");
+	printf("(3): Decrease Brightness\n");
+	printf("(0): Go back to menu\n");
+	printf("Please enter the number for the operation you would like to perform: ");
+	scanf("%d", &editMenuOption);
+	
+	return editMenuOption;
+}
+
+void getFile(int pictureColumns, int pictureRows, int pictureData[MAX_COLUMNS][MAX_ROWS]){
 	
 	char File[MAXFILE_SIZE];
+	int currentColumn, currentRow;
 	
 
 	printf("What is the name of the image file: ");
@@ -90,10 +106,11 @@ void getFile(int pictureColumns, int pictureRows, int pictureData[][MAX_ROWS]){
 	}
 	
 	
-	for(int currentColumn = 0; currentColumn < MAX_COLUMNS; currentColumn++) {
-		for(int currentRow = 0; currentRow < MAX_ROWS; currentRow++){
+	for(currentColumn = 0; currentColumn < MAX_COLUMNS; currentColumn++) {
+		for(currentRow = 0; pictureData[currentColumn][currentRow] != '\0'; currentRow++){
 			fscanf(readFilePointer, "%d", &pictureData[currentColumn][currentRow]);
 		}
+		pictureData[currentColumn][currentRow] = '\0';
 	}
 	
 	return;
@@ -104,12 +121,13 @@ void getFile(int pictureColumns, int pictureRows, int pictureData[][MAX_ROWS]){
 
 }
 
-void displayImage(int *pictureColumns, int *pictureRows, int pictureData[][MAX_ROWS]) {
+void displayImage(int *pictureColumns, int *pictureRows, int pictureData[MAX_COLUMNS][MAX_ROWS]) {
 	
 
 		//for(int currentColumn = 0; currentColumn < pictureColumns; currentColumn++) {
 		//	for(int currentRow = 0; currentRow < pictureRows; currentRow++) {
 		//		printf("%d ", pictureData[currentColumn][currentRow]);
+		
 		
 		
 	for(int currentColumn = 0; currentColumn < *pictureColumns; currentColumn++) {
