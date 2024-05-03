@@ -191,7 +191,7 @@ void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pict
 
 	for(int currentColumn = 0; currentColumn < *pictureColumns; currentColumn++) {
 		for(int currentRow = 0; currentRow < *pictureRows; currentRow++){
-
+			
 			if(pictureData[currentColumn][currentRow] == 0){
 				printf(" ");
 			}
@@ -209,7 +209,8 @@ void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pict
 			}
 		}
 	}
-	return;
+	
+	
 } 
 
 
