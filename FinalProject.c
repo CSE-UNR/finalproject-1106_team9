@@ -103,8 +103,6 @@ void getFile(int maxColSize,int *pictureColumns, int maxRowSize, int *pictureRow
 
 	
 	char File[MAXFILE_SIZE];
-	//int currentColumn = 0
-	//int currentRow = 0;
 	
 	 *pictureColumns = 0;
 	 *pictureRows = 0;
@@ -202,8 +200,4 @@ int cropImage(){
 	
 	return 0;	
 }
-
-	
-
-
 
