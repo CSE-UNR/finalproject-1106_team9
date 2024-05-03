@@ -33,12 +33,11 @@ int main() {
 	do{
 	
 		menuChoice = getMenu();
+		
 	
 			switch(menuChoice){
 			case 1:
-			
 				getFile(MAX_COLUMNS, &columns, MAX_ROWS, &rows, mainPictureData);
-			
 				break;
 			case 2:
 				displayImage(MAX_COLUMNS, &columns, MAX_ROWS, &rows, mainPictureData);
@@ -121,22 +120,15 @@ void getFile(int maxColSize,int *pictureColumns, int maxRowSize, int *pictureRow
 	
 	readFilePointer = fopen(File, "r");
 	
-	
-	
 	if(readFilePointer == NULL){
 		printf("\nCould not find an image with that file name\n\n");
 		return;
-
 	}
 	else{
 		printf("\n\nImage successfully loaded!\n\n");
-
 	}
-
 	char temp;
-
 	
-
 	while(fscanf(readFilePointer, "%c", &temp) == 1) {
 		if(temp == '\n') {
 			printf("\n");
@@ -171,14 +163,12 @@ void getFile(int maxColSize,int *pictureColumns, int maxRowSize, int *pictureRow
 				default:
 					break;
 			}
-			
-
 			printf("%c", pictureData[*pictureColumns][*pictureRows]);
 
 			(*pictureColumns)++;
-
 		}
 	}
+	
 	fclose(readFilePointer);
 	return;
 }
@@ -192,27 +182,10 @@ void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pict
 
 	for(int currentColumn = 0; currentColumn < *pictureColumns; currentColumn++) {
 		for(int currentRow = 0; currentRow < *pictureRows; currentRow++){
-			
-			if(pictureData[currentColumn][currentRow] == 0){
-				printf(" ");
-			}
-			else if (pictureData[currentColumn][currentRow] == 1){
-				printf(".");
-			}
-			else if (pictureData[currentColumn][currentRow] == 2){
-				printf("o");
-			}
-			else if (pictureData[currentColumn][currentRow] == 3) {
-				printf("O");
-			}
-			else{
-				printf("0");
-			}
+			printf("%c", pictureData[*pictureColumns][*pictureRows]);
 		}
-
 	}
-	
-	
+	return;
 } 
 
 
