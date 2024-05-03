@@ -137,17 +137,16 @@ void getFile(int maxColSize,int *pictureColumns, int maxRowSize, int *pictureRow
 	while(fscanf(readFilePointer, "%c", &temp) == 1) {
 		if(temp == '\n') {
 			printf("\n");
-<<<<<<< HEAD
+
 			*pictureRows++;
-=======
+
 			(*pictureRows)++;
->>>>>>> 3c6a082 (displays numbers to screen)
+
 			*pictureColumns = 0;
 		}
 		else{
 			pictureData[*pictureColumns][*pictureRows] = temp - '0';
-<<<<<<< HEAD
-=======
+
 			
 			
 			switch(pictureData[*pictureColumns][*pictureRows]) {
@@ -168,15 +167,13 @@ void getFile(int maxColSize,int *pictureColumns, int maxRowSize, int *pictureRow
 					break;
 			}
 			
-			
->>>>>>> 3c6a082 (displays numbers to screen)
+
 			printf("%d", pictureData[*pictureColumns][*pictureRows]);
 
 			(*pictureColumns)++;
 		}
 	}
-<<<<<<< HEAD
-=======
+
 
 	
 	fclose(readFilePointer);
@@ -186,7 +183,7 @@ void getFile(int maxColSize,int *pictureColumns, int maxRowSize, int *pictureRow
 	
 
 
->>>>>>> 3c6a082 (displays numbers to screen)
+
 }
 
 void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pictureRows, int pictureData[][MAX_ROWS]) {
@@ -224,7 +221,7 @@ void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pict
 	return;
 } 
 
-<<<<<<< HEAD
+
 int brightenImage(){
 	return 0;
 }
@@ -232,9 +229,9 @@ int brightenImage(){
 int dimImage(){
 	return 0;
 }
-=======
 
->>>>>>> 3c6a082 (displays numbers to screen)
+
+
 
 int cropImage(){ 
 	int leftBound, rightBound, topBound, bottomBound;
