@@ -1,6 +1,6 @@
 //Keilor Grossman and Jacob Bledsoe
 //4-29-2024
-//Final Project for image scalling
+//Final Project for image scaling
 
 #include <stdio.h>
 
@@ -72,7 +72,7 @@ int getMenu(){
 
 		int menuOption;	
 		
-		printf("***IMAGE MENU***\n");
+		printf("\n***IMAGE MENU***\n");
 		printf("(1): Load Image\n");
 		printf("(2): Display Image\n");
 		printf("(3): Edit Image\n");
@@ -135,28 +135,63 @@ void getFile(int maxColSize,int *pictureColumns, int maxRowSize, int *pictureRow
 	while(fscanf(readFilePointer, "%c", &temp) == 1) {
 		if(temp == '\n') {
 			printf("\n");
+
 			*pictureRows++;
+
+			(*pictureRows)++;
+
 			*pictureColumns = 0;
 		}
 		else{
 			pictureData[*pictureColumns][*pictureRows] = temp - '0';
+
+			
+			
+			switch(pictureData[*pictureColumns][*pictureRows]) {
+				case ' ':
+					pictureData[*pictureColumns][*pictureRows] = 0;
+					break;
+				case '.':
+					pictureData[*pictureColumns][*pictureRows] = 1;
+					break;
+				case 'o':
+					pictureData[*pictureColumns][*pictureRows] = 2 ;
+					break;
+				case 'O': 
+					pictureData[*pictureColumns][*pictureRows] = 3;
+				case '0':
+					pictureData[*pictureColumns][*pictureRows] = 4;
+				default:
+					break;
+			}
+			
+
 			printf("%d", pictureData[*pictureColumns][*pictureRows]);
-			printf("\n");
-		
-			*pictureColumns++;
+
+			(*pictureColumns)++;
 		}
 	}
+
+
+	
+	fclose(readFilePointer);
+	
+	
+	
+
+
+
 }
 
 void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pictureRows, int pictureData[][MAX_ROWS]) {
 	
-
 	int currentRow;
 	int currentColumn;
 		
-		
-	for(currentColumn = 0; currentColumn < *pictureColumns; currentColumn++) {
-		for(currentRow = 0; currentRow < *pictureRows; currentRow++){
+
+	for(int currentColumn = 0; currentColumn < *pictureColumns; currentColumn++) {
+		for(int currentRow = 0; currentRow < *pictureRows; currentRow++){
+
 			if(pictureData[currentColumn][currentRow] == 0){
 				printf(" ");
 			}
@@ -177,6 +212,7 @@ void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pict
 	return;
 } 
 
+
 int brightenImage(){
 	return 0;
 }
@@ -184,6 +220,9 @@ int brightenImage(){
 int dimImage(){
 	return 0;
 }
+
+
+
 
 int cropImage(){ 
 	int leftBound, rightBound, topBound, bottomBound;
