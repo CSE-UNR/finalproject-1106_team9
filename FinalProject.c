@@ -12,6 +12,8 @@
 int getMenu();
 int editMenu();
 int cropImage();
+int dimImage();
+int brightenImage();
 
 void getFile(int maxColSize,int *pictureColumns, int maxRowSize, int *pictureRows, int pictureData[][MAX_ROWS]);
 
@@ -20,7 +22,7 @@ void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pict
 
 int main() {
 
-	int menuChoice;
+	int menuChoice, editMenuOption;
 	
 	int columns;
 	int rows;
@@ -40,9 +42,21 @@ int main() {
 				displayImage(MAX_COLUMNS, &columns, MAX_ROWS, &rows, mainPictureData);
 				break;
 			case 3:
-				editMenu();
+				editMenuOption = editMenu();
+				switch(editMenuOption){
+					case 1:
+						cropImage();
+						break;
+					case 2:
+						brightenImage();
+						break;
+					case 3:
+						dimImage();
+						break;
+					default:
+						break;
+				}
 				break;
-
 			case 0:
 				printf("\nGoodbye!\n\n");
 				return 0;
@@ -81,18 +95,6 @@ int editMenu(){
 	printf("Please enter the number for the operation you would like to perform: ");
 	scanf("%d", &editMenuOption);
 	
-	switch(editMenuOption){
-		case '1':
-			cropImage();
-			break;
-		case '2':
-			break;
-		case '3':
-			break;
-		default:
-			break;
-	}
-	
 	return editMenuOption;
 }
 
@@ -128,47 +130,24 @@ void getFile(int maxColSize,int *pictureColumns, int maxRowSize, int *pictureRow
 		printf("\n\nImage successfully loaded!\n\n");
 
 	}
-	//for(currentColumn = 0; currentColumn < pictureColumns; currentColumn++) {
-	//	for(currentRow = 0; currentRow = '\0'; currentRow++){
-	//		fscanf(readFilePointer, "%d", &pictureData[currentColumn][currentRow]);
-	//	}
-	//	pictureData[currentColumn][MAX_ROWS] = '\0';
-	//}
-	
-	
-
-	//while(fscanf(readFilePointer, "%d%d", &pictureData[index][MAX_COLUMNS], &pictureData[index][MAX_ROWS]) == 1){
-	//	index++;
-	//}
 
 	char temp;
 
 	
 	while(fscanf(readFilePointer, "%c", &temp) == 1) {
 		if(temp == '\n') {
+			printf("\n");
 			*pictureRows++;
 			*pictureColumns = 0;
 		}
 		else{
-			pictureData[*pictureColumns][*pictureRows] = temp;
+			pictureData[*pictureColumns][*pictureRows] = temp - '0';
 			printf("%d", pictureData[*pictureColumns][*pictureRows]);
 			printf("\n");
 		
 			*pictureColumns++;
 		}
 	}
-
-	
-	//*pictureColumns = currentColumn;
-	//*pictureRows = currentRow;
-	
-	
-	
-	
-	
-	
-
-
 }
 
 void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pictureRows, int pictureData[][MAX_ROWS]) {
@@ -200,10 +179,18 @@ void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pict
 	return;
 } 
 
+int brightenImage(){
+	return 0;
+}
+
+int dimImage(){
+	return 0;
+}
+
 int cropImage(){ 
 	int leftBound, rightBound, topBound, bottomBound;
 	
-	printf("Please enter how much you would like to remove from the left side of the image: ");
+	printf("\n\nPlease enter how much you would like to remove from the left side of the image: ");
 	scanf("%d", &leftBound);
 	printf("\nPlease enter how much you would like to remove from the right side of the image: ");
 	scanf("%d", &rightBound);
@@ -213,7 +200,7 @@ int cropImage(){
 	scanf("%d", &bottomBound);
 	printf("\nYou have chosen to remove %d from the left side, %d from the right side, %d from the top, and %d from the bottom.\nHere is your croped image:\n", leftBound, rightBound, topBound, bottomBound);
 	
-	return;	
+	return 0;	
 }
 
 	
