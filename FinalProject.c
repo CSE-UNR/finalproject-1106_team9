@@ -159,8 +159,10 @@ void getFile(int maxColSize,int *pictureColumns, int maxRowSize, int *pictureRow
 					break;
 				case 3: 
 					pictureData[*pictureColumns][*pictureRows] = 'O';
+					break;
 				case 4:
 					pictureData[*pictureColumns][*pictureRows] = '0';
+					break;
 				default:
 					break;
 			}
