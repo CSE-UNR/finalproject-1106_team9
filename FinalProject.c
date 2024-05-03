@@ -11,6 +11,7 @@
 
 int getMenu();
 int editMenu();
+int cropImage();
 
 void getFile(int maxColSize,int *pictureColumns, int maxRowSize, int *pictureRows, int pictureData[][MAX_ROWS]);
 
@@ -80,14 +81,24 @@ int editMenu(){
 	printf("Please enter the number for the operation you would like to perform: ");
 	scanf("%d", &editMenuOption);
 	
+	switch(editMenuOption){
+		case '1':
+			cropImage();
+			break;
+		case '2':
+			break;
+		case '3':
+			break;
+		default:
+			break;
+	}
+	
 	return editMenuOption;
 }
 
-<<<<<<< HEAD
-int getFile(int pictureColumns, int pictureRows, int pictureData[MAX_COLUMNS][MAX_ROWS]){
-=======
+
 void getFile(int maxColSize,int *pictureColumns, int maxRowSize, int *pictureRows, int pictureData[][MAX_ROWS]){
->>>>>>> 03307edd607624f4284284d385c28851f303757d
+
 	
 	char File[MAXFILE_SIZE];
 	//int currentColumn = 0
@@ -110,29 +121,26 @@ void getFile(int maxColSize,int *pictureColumns, int maxRowSize, int *pictureRow
 	
 	if(readFilePointer == NULL){
 		printf("\nCould not find an image with that file name\n\n");
-<<<<<<< HEAD
-		return 1;
-=======
 		return;
->>>>>>> 03307edd607624f4284284d385c28851f303757d
+
 	}
 	else{
 		printf("\n\nImage successfully loaded!\n\n");
 
 	}
-	for(currentColumn = 0; currentColumn < pictureColumns; currentColumn++) {
-		for(currentRow = 0; currentRow = '\0'; currentRow++){
-			fscanf(readFilePointer, "%d", &pictureData[currentColumn][currentRow]);
-		}
-		pictureData[currentColumn][MAX_ROWS] = '\0';
-	}
+	//for(currentColumn = 0; currentColumn < pictureColumns; currentColumn++) {
+	//	for(currentRow = 0; currentRow = '\0'; currentRow++){
+	//		fscanf(readFilePointer, "%d", &pictureData[currentColumn][currentRow]);
+	//	}
+	//	pictureData[currentColumn][MAX_ROWS] = '\0';
+	//}
 	
 	
-<<<<<<< HEAD
+
 	//while(fscanf(readFilePointer, "%d%d", &pictureData[index][MAX_COLUMNS], &pictureData[index][MAX_ROWS]) == 1){
 	//	index++;
 	//}
-=======
+
 	char temp;
 
 	
@@ -149,7 +157,7 @@ void getFile(int maxColSize,int *pictureColumns, int maxRowSize, int *pictureRow
 			*pictureColumns++;
 		}
 	}
->>>>>>> 03307edd607624f4284284d385c28851f303757d
+
 	
 	//*pictureColumns = currentColumn;
 	//*pictureRows = currentRow;
@@ -165,14 +173,10 @@ void getFile(int maxColSize,int *pictureColumns, int maxRowSize, int *pictureRow
 
 void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pictureRows, int pictureData[][MAX_ROWS]) {
 	
-<<<<<<< HEAD
-	int currentRow, currentColumn;
-=======
+
 	int currentRow;
 	int currentColumn;
 		
-		
->>>>>>> 03307edd607624f4284284d385c28851f303757d
 		
 	for(currentColumn = 0; currentColumn < *pictureColumns; currentColumn++) {
 		for(currentRow = 0; currentRow < *pictureRows; currentRow++){
@@ -195,6 +199,22 @@ void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pict
 	}
 	return;
 } 
+
+int cropImage(){ 
+	int leftBound, rightBound, topBound, bottomBound;
+	
+	printf("Please enter how much you would like to remove from the left side of the image: ");
+	scanf("%d", &leftBound);
+	printf("\nPlease enter how much you would like to remove from the right side of the image: ");
+	scanf("%d", &rightBound);
+	printf("\nPlease enter how much you would like to remove from the top of the image: ");
+	scanf("%d", &topBound);
+	printf("\nPlease enter how much you would like to remove from the bottom of the image: ");
+	scanf("%d", &bottomBound);
+	printf("\nYou have chosen to remove %d from the left side, %d from the right side, %d from the top, and %d from the bottom.\nHere is your croped image:\n", leftBound, rightBound, topBound, bottomBound);
+	
+	return;	
+}
 
 	
 
