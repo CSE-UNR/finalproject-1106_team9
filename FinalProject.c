@@ -82,7 +82,7 @@ int editMenu(){
 	return editMenuOption;
 }
 
-int getFile(int pictureColumns, int pictureRows, int pictureData[][MAX_ROWS]){
+int getFile(int pictureColumns, int pictureRows, int pictureData[MAX_COLUMNS][MAX_ROWS]){
 	
 	char File[MAXFILE_SIZE];
 	int currentColumn, currentRow, index = 0;
@@ -97,24 +97,27 @@ int getFile(int pictureColumns, int pictureRows, int pictureData[][MAX_ROWS]){
 	
 	readFilePointer = fopen(File, "r");
 	
+	
+	
 	if(readFilePointer == NULL){
 		printf("\nCould not find an image with that file name\n\n");
-		return 0;
+		return 1;
 	}
 	else{
 		printf("\n\nImage successfully loaded!\n\n");
+
+	}
+	for(currentColumn = 0; currentColumn < pictureColumns; currentColumn++) {
+		for(currentRow = 0; currentRow = '\0'; currentRow++){
+			fscanf(readFilePointer, "%d", &pictureData[currentColumn][currentRow]);
+		}
+		pictureData[currentColumn][MAX_ROWS] = '\0';
 	}
 	
 	
-	//for(currentColumn = 0; currentColumn < MAX_COLUMNS; currentColumn++) {
-	//	for(currentRow = 0; pictureData[currentColumn][currentRow] != '\0'; currentRow++){
-	//		fscanf(readFilePointer, "%d", &pictureData[currentColumn][currentRow]);
-	//	}
-	//	pictureData[currentColumn][currentRow] = '\0';
+	//while(fscanf(readFilePointer, "%d%d", &pictureData[index][MAX_COLUMNS], &pictureData[index][MAX_ROWS]) == 1){
+	//	index++;
 	//}
-	while(fscanf(readFilePointer, "%d%d", &pictureData[index][MAX_COLUMNS], &pictureData[index][MAX_ROWS]) == 2){
-		index++;
-	}
 	
 	fclose(readFilePointer);
 	return index;
@@ -123,10 +126,6 @@ int getFile(int pictureColumns, int pictureRows, int pictureData[][MAX_ROWS]){
 void displayImage(int pictureColumns, int pictureRows, int pictureData[][MAX_ROWS]) {
 	
 	int currentRow, currentColumn;
-		//for(int currentColumn = 0; currentColumn < pictureColumns; currentColumn++) {
-		//	for(int currentRow = 0; currentRow < pictureRows; currentRow++) {
-		
-		
 		
 	for(currentColumn = 0; currentColumn < pictureColumns; currentColumn++) {
 		for(currentRow = 0; currentRow < pictureRows; currentRow++){
