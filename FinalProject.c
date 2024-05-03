@@ -180,8 +180,14 @@ void getFile(int maxColSize,int *pictureColumns, int maxRowSize, int *pictureRow
 		}
 	}
 	fclose(readFilePointer);
+
 	return;
+
+
+
 }
+
+
 
 void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pictureRows, int pictureData[][MAX_ROWS]) {
 
@@ -193,22 +199,25 @@ void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pict
 	for(int currentColumn = 0; currentColumn < *pictureColumns; currentColumn++) {
 		for(int currentRow = 0; currentRow < *pictureRows; currentRow++){
 			
-			if(pictureData[currentColumn][currentRow] == 0){
+			if(pictureData[currentColumn][currentRow] == '0'){
 				printf(" ");
 			}
-			else if (pictureData[currentColumn][currentRow] == 1){
+			else if (pictureData[currentColumn][currentRow] == '1'){
 				printf(".");
 			}
-			else if (pictureData[currentColumn][currentRow] == 2){
+			else if (pictureData[currentColumn][currentRow] == '2'){
 				printf("o");
 			}
-			else if (pictureData[currentColumn][currentRow] == 3) {
+			else if (pictureData[currentColumn][currentRow] == '3') {
 				printf("O");
 			}
 			else{
 				printf("0");
 			}
 		}
+
+	printf("%c", pictureData[*pictureColumns][*pictureRows]);
+	printf("\n");
 
 	}
 	
@@ -219,6 +228,8 @@ void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pict
 int brightenImage(){
 	return 0;
 }
+
+
 
 int dimImage(){
 	return 0;
