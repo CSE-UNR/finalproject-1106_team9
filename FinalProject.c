@@ -178,8 +178,7 @@ void getFile(int maxColSize,int *pictureColumns, int maxRowSize, int *pictureRow
 	
 	fclose(readFilePointer);
 	
-	//*pictureColumns = currentColumn;
-	//*pictureRows = currentRow;
+	
 	
 
 
@@ -190,12 +189,6 @@ void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pict
 	
 	int currentRow;
 	int currentColumn;
-		
-		
-
-
-	
-		
 		
 
 	for(int currentColumn = 0; currentColumn < *pictureColumns; currentColumn++) {
