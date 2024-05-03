@@ -87,7 +87,7 @@ int getMenu(){
 int editMenu(){
 	int editMenuOption;
 	
-	printf("***EDIT IMAGE MENU***\n");
+	printf("\n***EDIT IMAGE MENU***\n");
 	printf("(1): Crop Image\n");
 	printf("(2): Increase Brightness\n");
 	printf("(3): Decrease Brightness\n");
@@ -148,25 +148,25 @@ void getFile(int maxColSize,int *pictureColumns, int maxRowSize, int *pictureRow
 			
 			
 			switch(pictureData[*pictureColumns][*pictureRows]) {
-				case ' ':
-					pictureData[*pictureColumns][*pictureRows] = 0;
+				case 0:
+					pictureData[*pictureColumns][*pictureRows] = ' ';
 					break;
-				case '.':
-					pictureData[*pictureColumns][*pictureRows] = 1;
+				case 1:
+					pictureData[*pictureColumns][*pictureRows] = '.';
 					break;
-				case 'o':
-					pictureData[*pictureColumns][*pictureRows] = 2 ;
+				case 2:
+					pictureData[*pictureColumns][*pictureRows] = 'o';
 					break;
-				case 'O': 
-					pictureData[*pictureColumns][*pictureRows] = 3;
-				case '0':
-					pictureData[*pictureColumns][*pictureRows] = 4;
+				case 3: 
+					pictureData[*pictureColumns][*pictureRows] = 'O';
+				case 4:
+					pictureData[*pictureColumns][*pictureRows] = '0';
 				default:
 					break;
 			}
 			
 
-			printf("%d", pictureData[*pictureColumns][*pictureRows]);
+			printf("%c", pictureData[*pictureColumns][*pictureRows]);
 
 			(*pictureColumns)++;
 		}
