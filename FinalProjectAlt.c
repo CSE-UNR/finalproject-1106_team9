@@ -27,6 +27,7 @@ int main() {
 	int rows;
 	char mainPictureData[MAX_ROWS][MAX_COLUMNS];
 	char File[MAXFILE_SIZE];
+	char userSaveOption;
 	
 	do{
 	
@@ -50,6 +51,14 @@ int main() {
 						break;
 					case 2:
 						brightenImage(File, mainPictureData);
+						printf("Would you like to save the image to a file? (y/n) \n");
+						scanf("%c", &userSaveOption);
+						if(userSaveOption == 'y'){
+							
+						}
+						else{
+							return 0;
+						}
 						return 0;
 						break;
 					case 3:
@@ -354,3 +363,8 @@ void cropImage(char *File, char pictureData[][MAX_COLUMNS]){
 	return;	
 }
 
+char saveImage() {
+
+
+
+}
