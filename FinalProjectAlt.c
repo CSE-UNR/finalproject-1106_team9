@@ -29,7 +29,7 @@ int main() {
 	char mainPictureData[MAX_ROWS][MAX_COLUMNS];
 	char File[MAXFILE_SIZE];
 	char userSaveOption;
-	char saveFileName[MAXFILE_SIZE];
+	
 	
 	do{
 	
@@ -49,43 +49,14 @@ int main() {
 				switch(editMenuOption){
 					case 1:
 						cropImage(File, mainPictureData);
-						printf("Would you like to save the image to a file? (y/n) ");
-						scanf(" %c", &userSaveOption);
-						if(userSaveOption == 'y'){
-							saveImage(File, mainPictureData);
-							
-						}
-						else{
-							menuChoice = getMenu();
-						}
 						return 0;
 						break;
 					case 2:
 						brightenImage(File, mainPictureData);
-						printf("Would you like to save the image to a file? (y/n) ");
-						scanf(" %c", &userSaveOption);
-						if(userSaveOption == 'y'){
-							saveImage(File, mainPictureData);
-							
-							
-						}
-						else{
-							menuChoice = getMenu();
-						}
 						return 0;
 						break;
 					case 3:
 						dimImage(File, mainPictureData);
-						printf("Would you like to save the image to a file? (y/n) ");
-						scanf(" %c", &userSaveOption);
-						if(userSaveOption == 'y'){
-							saveImage(File, mainPictureData);
-							
-							
-						}
-						else{
-							menuChoice = getMenu();
-						}
 						return 0;
 						break;
 					default:
@@ -335,6 +306,7 @@ void cropImage(char *File, char pictureData[][MAX_COLUMNS]){
 	char temp;
 	
 	
+	
 	int pictureColumns = 0;
 	int pictureRows = 0;
 	
@@ -383,10 +355,31 @@ void cropImage(char *File, char pictureData[][MAX_COLUMNS]){
 		}
 		printf("\n");
 	}
+	char saveFile[MAXFILE_SIZE];
+	char saveO;
+	
+	
+	printf("Would you like to store image in a file?(y/n): ");
+	scanf(" %c", &saveO);
+	
+	if(saveO == 'y'){
+		printf("What do you want to name the image file? ");
+		scanf("%s", saveFile);
+		saveFile[MAXFILE_SIZE] = '\0';	
+		FILE *savefptr;		
+		savefptr = fopen(saveFile, "w");
+		for(int topI = topBound-1; topI < bottomBound; topI++){
+			for(int leftI = leftBound-1; leftI < rightBound; leftI++){
+				fprintf(savefptr, "%c", pictureData[leftI][topI]);
+				}
+			fprintf(savefptr, "\n");
+			}
+	}
+		
 	return;	
 }
 
-void saveImage(char *File, char pictureData[][MAX_COLUMNS]) {
+/*void saveImage(char *File, char pictureData[][MAX_COLUMNS]) {
 	char saveFile[MAXFILE_SIZE];
 	printf("What do you want to name the image file? ");
 	scanf("%s", saveFile);
@@ -460,6 +453,6 @@ void saveImage(char *File, char pictureData[][MAX_COLUMNS]) {
 	fclose(savefptr);
 	fclose(readFilePointer);
 
-}
+}*/
 
 
