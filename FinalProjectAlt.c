@@ -18,6 +18,7 @@ void brightenImage(char *File, char pictureData[][MAX_COLUMNS]);
 void getFile(char *File);
 
 void displayImage(char *File, char pictureData[][MAX_COLUMNS]);
+void saveImage(char *File, char pictureData[][MAX_COLUMNS]);
 
 int main() {
 
@@ -28,6 +29,7 @@ int main() {
 	char mainPictureData[MAX_ROWS][MAX_COLUMNS];
 	char File[MAXFILE_SIZE];
 	char userSaveOption;
+	char saveFileName[MAXFILE_SIZE];
 	
 	do{
 	
@@ -47,22 +49,43 @@ int main() {
 				switch(editMenuOption){
 					case 1:
 						cropImage(File, mainPictureData);
+						printf("Would you like to save the image to a file? (y/n) ");
+						scanf(" %c", &userSaveOption);
+						if(userSaveOption == 'y'){
+							saveImage(File, mainPictureData);
+							
+						}
+						else{
+							menuChoice = getMenu();
+						}
 						return 0;
 						break;
 					case 2:
 						brightenImage(File, mainPictureData);
-						printf("Would you like to save the image to a file? (y/n) \n");
-						scanf("%c", &userSaveOption);
+						printf("Would you like to save the image to a file? (y/n) ");
+						scanf(" %c", &userSaveOption);
 						if(userSaveOption == 'y'){
+							saveImage(File, mainPictureData);
+							
 							
 						}
 						else{
-							return 0;
+							menuChoice = getMenu();
 						}
 						return 0;
 						break;
 					case 3:
 						dimImage(File, mainPictureData);
+						printf("Would you like to save the image to a file? (y/n) ");
+						scanf(" %c", &userSaveOption);
+						if(userSaveOption == 'y'){
+							saveImage(File, mainPictureData);
+							
+							
+						}
+						else{
+							menuChoice = getMenu();
+						}
 						return 0;
 						break;
 					default:
@@ -363,8 +386,80 @@ void cropImage(char *File, char pictureData[][MAX_COLUMNS]){
 	return;	
 }
 
-char saveImage() {
+void saveImage(char *File, char pictureData[][MAX_COLUMNS]) {
+	char saveFile[MAXFILE_SIZE];
+	printf("What do you want to name the image file? ");
+	scanf("%s", saveFile);
+	
+	saveFile[MAXFILE_SIZE] = '\0';	
+	FILE *savefptr;		
+	savefptr = fopen(saveFile, "w");
 
+	char temp;
+	
+	
+	int pictureColumns = 0;
+	int pictureRows = 0;
+	
+	File[MAXFILE_SIZE] = '\0';
+	
+	FILE *readFilePointer;
+	
+	readFilePointer = fopen(File, "r");
+	
+	while(fscanf(readFilePointer, "%c", &temp) == 1) {
+		if(temp == '\n') {
 
+			pictureColumns++;
+			pictureRows = 0;
+		}
+		else{
+			pictureData[pictureRows][pictureColumns] = temp - '0';
+			
+			switch(pictureData[pictureRows][pictureColumns]) {
+				case 0:
+					pictureData[pictureRows][pictureColumns] = ' ';
+					break;
+				case 1:
+					pictureData[pictureRows][pictureColumns] = '.';
+					break;
+				case 2:
+					pictureData[pictureRows][pictureColumns] = 'o';
+					break;
+				case 3: 
+					pictureData[pictureRows][pictureColumns] = 'O';
+					break;
+				case 4:
+					pictureData[pictureRows][pictureColumns] = '0';
+					break;
+				default:
+					
+					break;
+			}
+			pictureRows++;
+	
+		} 
+	}
+	
+	
+	
+	//for(int row = 0; row < pictureRows; row++){
+	//	for(int column = 0; column < pictureColumns; column++){
+			fprintf(savefptr, "%c", pictureData[pictureRows][pictureColumns]);
+	//		}
+	//	fprintf(savefptr, "\n");
+	//	}	
+	
+	
+	
+		
+		
+	
+	
+	
+	fclose(savefptr);
+	fclose(readFilePointer);
 
 }
+
+
