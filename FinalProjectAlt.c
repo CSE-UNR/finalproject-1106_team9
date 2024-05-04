@@ -15,9 +15,9 @@ int cropImage();
 int dimImage();
 int brightenImage();
 
-void getFile(int *pictureColumns, int *pictureRows, char pictureData[][MAX_COLUMNS]);
+void getFile(char *File);
 
-void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pictureRows, char pictureData[][MAX_COLUMNS]);
+void displayImage(char *File, char pictureData[][MAX_COLUMNS]);
 
 int main() {
 
@@ -26,6 +26,7 @@ int main() {
 	int columns;
 	int rows;
 	char mainPictureData[MAX_ROWS][MAX_COLUMNS];
+	char File[MAXFILE_SIZE];
 	
 	do{
 	
@@ -34,11 +35,11 @@ int main() {
 			switch(menuChoice){
 			case 1:
 			
-				getFile(MAX_COLUMNS, &columns, MAX_ROWS, &rows, mainPictureData);
+				getFile(File);
 			
 				break;
 			case 2:
-				displayImage(MAX_COLUMNS, &columns, MAX_ROWS, &rows, mainPictureData);
+				displayImage(File, mainPictureData);
 				break;
 			case 3:
 				editMenuOption = editMenu();
@@ -98,15 +99,10 @@ int editMenu(){
 }
 
 
-void getFile(int maxColSize, int *pictureColumns, int maxRowSize, int *pictureRows, char pictureData[][MAX_COLUMNS]){
+void getFile(char *File){
 
 	
-	char File[MAXFILE_SIZE], temp;
-	
-	*pictureColumns = 0;
-	*pictureRows = 0;
-	
-
+	char temp;
 	printf("What is the name of the image file: ");
 	scanf("%s", File);
 	
@@ -125,67 +121,61 @@ void getFile(int maxColSize, int *pictureColumns, int maxRowSize, int *pictureRo
 	}
 	else{
 		printf("\n\nImage successfully loaded!\n\n");
-
+		fclose(readFilePointer);
+		
 	}
+}
 
+void displayImage(char *File, char pictureData[][MAX_COLUMNS]) {
 	
-
+	char temp;
+	printf("%s", File);
+	
+	int pictureColumns = 0;
+	int pictureRows = 0;
+	
+	File[MAXFILE_SIZE] = '\0';
+	
+	FILE *readFilePointer;
+	
+	readFilePointer = fopen(File, "r");
 	
 	while(fscanf(readFilePointer, "%c", &temp) == 1) {
 		if(temp == '\n') {
 			printf("\n");
 
-			*pictureColumns++;
-			*pictureRows = 0;
+			pictureColumns++;
+			pictureRows = 0;
 		}
 		else{
-			pictureData[*pictureRows][*pictureColumns] = temp - '0';
+			pictureData[pictureRows][pictureColumns] = temp - '0';
 			
-			switch(pictureData[*pictureRows][*pictureColumns]) {
+			switch(pictureData[pictureRows][pictureColumns]) {
 				case 0:
-					pictureData[*pictureRows][*pictureColumns] = ' ';
+					pictureData[pictureRows][pictureColumns] = ' ';
 					break;
 				case 1:
-					pictureData[*pictureRows][*pictureColumns] = '.';
+					pictureData[pictureRows][pictureColumns] = '.';
 					break;
 				case 2:
-					pictureData[*pictureRows][*pictureColumns] = 'o';
+					pictureData[pictureRows][pictureColumns] = 'o';
 					break;
 				case 3: 
-					pictureData[*pictureRows][*pictureColumns] = 'O';
+					pictureData[pictureRows][pictureColumns] = 'O';
 					break;
 				case 4:
-					pictureData[*pictureRows][*pictureColumns] = '0';
+					pictureData[pictureRows][pictureColumns] = '0';
 					break;
 				default:
 					
 					break;
 			}
-			
-
-			printf("%c", pictureData[*pictureRows][*pictureColumns]);
-
-			*pictureRows++;
-		}
-	}
-
-
+			printf("%c", pictureData[pictureRows][pictureColumns]);
+			pictureRows++;
 	
-	fclose(readFilePointer);
+		} 
+	}
 }
-
-void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pictureRows, char pictureData[][MAX_COLUMNS]) {
-
-	
-	for(int rowI= 0; rowI < *pictureRows; rowI++) {
-		for(int columnI = 0; pictureData[*pictureRows][columnI] != '\n'; columnI++){
-			printf("%c", pictureData[*pictureRows][columnI]);
-		}
-		printf("\n");
-		
-	}
-	
-} 
 
 
 int brightenImage(){
