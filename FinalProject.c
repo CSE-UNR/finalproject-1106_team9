@@ -9,6 +9,7 @@
 #define MAX_COLUMNS 500
 #define MAX_ROWS 500
 
+
 int getMenu();
 int editMenu();
 int cropImage();
@@ -22,20 +23,25 @@ void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pict
 int main() {
 
 	int menuChoice, editMenuOption;
+
 	
 	int columns;
 	int rows;
+<<<<<<< HEAD
 	char mainPictureData[MAX_ROWS][MAX_COLUMNS];
 	
+=======
+	int mainPictureData[MAX_COLUMNS][MAX_ROWS];
+
+>>>>>>> 421d97388bc3e27ced46cf6c6a85e6bcb9d2e3b8
 	do{
 	
 		menuChoice = getMenu();
+		
 	
 			switch(menuChoice){
 			case 1:
-			
 				getFile(MAX_COLUMNS, &columns, MAX_ROWS, &rows, mainPictureData);
-			
 				break;
 			case 2:
 				displayImage(MAX_COLUMNS, &columns, MAX_ROWS, &rows, mainPictureData);
@@ -62,8 +68,8 @@ int main() {
 			default:
 				printf("\nInvalid input\n\n");
 				break;
-		}
-	} while(menuChoice != 0);
+			}
+	}while(menuChoice != 0);
 	return 0;
 }
 
@@ -98,10 +104,19 @@ int editMenu(){
 }
 
 
+<<<<<<< HEAD
 void getFile(int maxColSize, int *pictureColumns, int maxRowSize, int *pictureRows, char pictureData[][MAX_COLUMNS]){
 
 	
 	char File[MAXFILE_SIZE], temp;
+=======
+
+void getFile(int maxColSize,int *pictureColumns, int maxRowSize, int *pictureRows, int pictureData[][MAX_ROWS]){
+
+	
+	char File[MAXFILE_SIZE];
+	int* columnnum = 0, rownum = 0;
+>>>>>>> 421d97388bc3e27ced46cf6c6a85e6bcb9d2e3b8
 	
 	*pictureColumns = 0;
 	*pictureRows = 0;
@@ -116,20 +131,20 @@ void getFile(int maxColSize, int *pictureColumns, int maxRowSize, int *pictureRo
 	
 	readFilePointer = fopen(File, "r");
 	
-	
-	
 	if(readFilePointer == NULL){
 		printf("\nCould not find an image with that file name\n\n");
 		return;
-
 	}
 	else{
 		printf("\n\nImage successfully loaded!\n\n");
-
 	}
+<<<<<<< HEAD
 
 	
 
+=======
+	char temp;
+>>>>>>> 421d97388bc3e27ced46cf6c6a85e6bcb9d2e3b8
 	
 	while(fscanf(readFilePointer, "%c", &temp) == 1) {
 		if(temp == '\n') {
@@ -152,26 +167,36 @@ void getFile(int maxColSize, int *pictureColumns, int maxRowSize, int *pictureRo
 					pictureData[*pictureRows][*pictureColumns] = 'o';
 					break;
 				case 3: 
+<<<<<<< HEAD
 					pictureData[*pictureRows][*pictureColumns] = 'O';
 					break;
 				case 4:
 					pictureData[*pictureRows][*pictureColumns] = '0';
+=======
+					pictureData[*pictureColumns][*pictureRows] = 'O';
+					break;
+				case 4:
+					pictureData[*pictureColumns][*pictureRows] = '0';
+>>>>>>> 421d97388bc3e27ced46cf6c6a85e6bcb9d2e3b8
 					break;
 				default:
 					
 					break;
 			}
+<<<<<<< HEAD
 			
 
 			printf("%c", pictureData[*pictureRows][*pictureColumns]);
+=======
+			printf("%c", pictureData[*pictureColumns][*pictureRows]);
+>>>>>>> 421d97388bc3e27ced46cf6c6a85e6bcb9d2e3b8
 
 			*pictureRows++;
 		}
 	}
-
-
 	
 	fclose(readFilePointer);
+<<<<<<< HEAD
 }
 
 void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pictureRows, char pictureData[][MAX_COLUMNS]) {
@@ -183,6 +208,52 @@ void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pict
 		}
 		printf("\n");
 		
+=======
+
+	return;
+
+
+
+}
+
+
+
+void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pictureRows, int pictureData[][MAX_ROWS]) {
+
+	
+	int currentRow;
+	int currentColumn;
+		
+
+	for(int currentColumn = 0; currentColumn < *pictureColumns; currentColumn++) {
+		for(int currentRow = 0; currentRow < *pictureRows; currentRow++){
+
+			printf("%c", pictureData[*pictureColumns][*pictureRows]);
+		}
+
+			
+			if(pictureData[currentColumn][currentRow] == '0'){
+				printf(" ");
+			}
+			else if (pictureData[currentColumn][currentRow] == '1'){
+				printf(".");
+			}
+			else if (pictureData[currentColumn][currentRow] == '2'){
+				printf("o");
+			}
+			else if (pictureData[currentColumn][currentRow] == '3') {
+				printf("O");
+			}
+			else{
+				printf("0");
+			}
+		}
+
+	printf("%c", pictureData[*pictureColumns][*pictureRows]);
+	printf("\n");
+
+
+>>>>>>> 421d97388bc3e27ced46cf6c6a85e6bcb9d2e3b8
 	}
 	
 } 
@@ -191,6 +262,8 @@ void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pict
 int brightenImage(){
 	return 0;
 }
+
+
 
 int dimImage(){
 	return 0;
