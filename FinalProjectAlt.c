@@ -12,8 +12,8 @@
 int getMenu();
 int editMenu();
 int cropImage();
-int dimImage();
-int brightenImage();
+void dimImage(char *File, char pictureData[][MAX_COLUMNS]);
+void brightenImage(char *File, char pictureData[][MAX_COLUMNS]);
 
 void getFile(char *File);
 
@@ -48,10 +48,12 @@ int main() {
 						cropImage();
 						break;
 					case 2:
-						brightenImage();
+						brightenImage(File, mainPictureData);
+						return 0;
 						break;
 					case 3:
-						dimImage();
+						dimImage(File, mainPictureData);
+						return 0;
 						break;
 					default:
 						break;
@@ -178,12 +180,108 @@ void displayImage(char *File, char pictureData[][MAX_COLUMNS]) {
 }
 
 
-int brightenImage(){
-	return 0;
+void brightenImage(char *File, char pictureData[][MAX_COLUMNS]){
+	
+	char temp;
+	printf("%s", File);
+	
+	int pictureColumns = 0;
+	int pictureRows = 0;
+	
+	File[MAXFILE_SIZE] = '\0';
+	
+	FILE *readFilePointer;
+	
+	readFilePointer = fopen(File, "r");
+	
+	while(fscanf(readFilePointer, "%c", &temp) == 1) {
+		if(temp == '\n') {
+			printf("\n");
+
+			pictureColumns++;
+			pictureRows = 0;
+		}
+		else{
+			pictureData[pictureRows][pictureColumns] = temp - '0';
+			
+			switch(pictureData[pictureRows][pictureColumns]) {
+				case 0:
+					pictureData[pictureRows][pictureColumns] = ' ';
+					break;
+				case 1:
+					pictureData[pictureRows][pictureColumns] = ' ';
+					break;
+				case 2:
+					pictureData[pictureRows][pictureColumns] = '.';
+					break;
+				case 3: 
+					pictureData[pictureRows][pictureColumns] = 'o';
+					break;
+				case 4:
+					pictureData[pictureRows][pictureColumns] = 'O';
+					break;
+				default:
+					
+					break;
+			}
+			printf("%c", pictureData[pictureRows][pictureColumns]);
+			pictureRows++;
+	
+		} 
+	}
+	return;
 }
 
-int dimImage(){
-	return 0;
+void dimImage(char *File, char pictureData[][MAX_COLUMNS]){
+	
+	char temp;
+	printf("%s", File);
+	
+	int pictureColumns = 0;
+	int pictureRows = 0;
+	
+	File[MAXFILE_SIZE] = '\0';
+	
+	FILE *readFilePointer;
+	
+	readFilePointer = fopen(File, "r");
+	
+	while(fscanf(readFilePointer, "%c", &temp) == 1) {
+		if(temp == '\n') {
+			printf("\n");
+
+			pictureColumns++;
+			pictureRows = 0;
+		}
+		else{
+			pictureData[pictureRows][pictureColumns] = temp - '0';
+			
+			switch(pictureData[pictureRows][pictureColumns]) {
+				case 0:
+					pictureData[pictureRows][pictureColumns] = '.';
+					break;
+				case 1:
+					pictureData[pictureRows][pictureColumns] = 'o';
+					break;
+				case 2:
+					pictureData[pictureRows][pictureColumns] = 'O';
+					break;
+				case 3: 
+					pictureData[pictureRows][pictureColumns] = '0';
+					break;
+				case 4:
+					pictureData[pictureRows][pictureColumns] = '0';
+					break;
+				default:
+					
+					break;
+			}
+			printf("%c", pictureData[pictureRows][pictureColumns]);
+			pictureRows++;
+	
+		} 
+	}
+	return;
 }
 
 
