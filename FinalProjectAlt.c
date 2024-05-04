@@ -11,7 +11,7 @@
 
 int getMenu();
 int editMenu();
-int cropImage();
+void cropImage(char *File, char pictureData[][MAX_COLUMNS]);
 void dimImage(char *File, char pictureData[][MAX_COLUMNS]);
 void brightenImage(char *File, char pictureData[][MAX_COLUMNS]);
 
@@ -45,7 +45,8 @@ int main() {
 				editMenuOption = editMenu();
 				switch(editMenuOption){
 					case 1:
-						cropImage();
+						cropImage(File, mainPictureData);
+						return 0;
 						break;
 					case 2:
 						brightenImage(File, mainPictureData);
@@ -131,7 +132,7 @@ void getFile(char *File){
 void displayImage(char *File, char pictureData[][MAX_COLUMNS]) {
 	
 	char temp;
-	printf("%s", File);
+	
 	
 	int pictureColumns = 0;
 	int pictureRows = 0;
@@ -183,7 +184,7 @@ void displayImage(char *File, char pictureData[][MAX_COLUMNS]) {
 void brightenImage(char *File, char pictureData[][MAX_COLUMNS]){
 	
 	char temp;
-	printf("%s", File);
+	
 	
 	int pictureColumns = 0;
 	int pictureRows = 0;
@@ -235,7 +236,7 @@ void brightenImage(char *File, char pictureData[][MAX_COLUMNS]){
 void dimImage(char *File, char pictureData[][MAX_COLUMNS]){
 	
 	char temp;
-	printf("%s", File);
+	
 	
 	int pictureColumns = 0;
 	int pictureRows = 0;
@@ -287,19 +288,69 @@ void dimImage(char *File, char pictureData[][MAX_COLUMNS]){
 
 
 
-int cropImage(){ 
+void cropImage(char *File, char pictureData[][MAX_COLUMNS]){ 
 	int leftBound, rightBound, topBound, bottomBound;
 	
-	printf("\n\nPlease enter how much you would like to remove from the left side of the image: ");
+	printf("\n\nPlease enter your left boundry(value must be atleast 1): ");
 	scanf("%d", &leftBound);
-	printf("\nPlease enter how much you would like to remove from the right side of the image: ");
+	printf("\nPlease enter your right boundry(value must be greater than value for your left boundy): ");
 	scanf("%d", &rightBound);
-	printf("\nPlease enter how much you would like to remove from the top of the image: ");
+	printf("\nPlease enter your upper boundry(value must be atleast 1): ");
 	scanf("%d", &topBound);
-	printf("\nPlease enter how much you would like to remove from the bottom of the image: ");
+	printf("\nPlease enter your lower boundry(value must be greater than your upper boundry): ");
 	scanf("%d", &bottomBound);
-	printf("\nYou have chosen to remove %d from the left side, %d from the right side, %d from the top, and %d from the bottom.\nHere is your croped image:\n", leftBound, rightBound, topBound, bottomBound);
 	
-	return 0;	
+	char temp;
+	
+	
+	int pictureColumns = 0;
+	int pictureRows = 0;
+	
+	File[MAXFILE_SIZE] = '\0';
+	
+	FILE *readFilePointer;
+	
+	readFilePointer = fopen(File, "r");
+	
+	while(fscanf(readFilePointer, "%c", &temp) == 1) {
+		if(temp == '\n') {
+
+			pictureColumns++;
+			pictureRows = 0;
+		}
+		else{
+			pictureData[pictureRows][pictureColumns] = temp - '0';
+			
+			switch(pictureData[pictureRows][pictureColumns]) {
+				case 0:
+					pictureData[pictureRows][pictureColumns] = ' ';
+					break;
+				case 1:
+					pictureData[pictureRows][pictureColumns] = '.';
+					break;
+				case 2:
+					pictureData[pictureRows][pictureColumns] = 'o';
+					break;
+				case 3: 
+					pictureData[pictureRows][pictureColumns] = 'O';
+					break;
+				case 4:
+					pictureData[pictureRows][pictureColumns] = '0';
+					break;
+				default:
+					
+					break;
+			}
+			pictureRows++;
+	
+		} 
+	}
+	for(int topI = topBound-1; topI < bottomBound; topI++){
+		for(int leftI = leftBound-1; leftI < rightBound; leftI++){
+			printf("%c", pictureData[leftI][topI]);
+		}
+		printf("\n");
+	}
+	return;	
 }
 
