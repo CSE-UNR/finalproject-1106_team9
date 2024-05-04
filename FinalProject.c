@@ -27,13 +27,13 @@ int main() {
 	
 	int columns;
 	int rows;
-<<<<<<< HEAD
+
 	char mainPictureData[MAX_ROWS][MAX_COLUMNS];
 	
-=======
+
 	int mainPictureData[MAX_COLUMNS][MAX_ROWS];
 
->>>>>>> 421d97388bc3e27ced46cf6c6a85e6bcb9d2e3b8
+
 	do{
 	
 		menuChoice = getMenu();
@@ -104,19 +104,19 @@ int editMenu(){
 }
 
 
-<<<<<<< HEAD
+
 void getFile(int maxColSize, int *pictureColumns, int maxRowSize, int *pictureRows, char pictureData[][MAX_COLUMNS]){
 
 	
 	char File[MAXFILE_SIZE], temp;
-=======
+
 
 void getFile(int maxColSize,int *pictureColumns, int maxRowSize, int *pictureRows, int pictureData[][MAX_ROWS]){
 
 	
 	char File[MAXFILE_SIZE];
 	int* columnnum = 0, rownum = 0;
->>>>>>> 421d97388bc3e27ced46cf6c6a85e6bcb9d2e3b8
+
 	
 	*pictureColumns = 0;
 	*pictureRows = 0;
@@ -138,13 +138,13 @@ void getFile(int maxColSize,int *pictureColumns, int maxRowSize, int *pictureRow
 	else{
 		printf("\n\nImage successfully loaded!\n\n");
 	}
-<<<<<<< HEAD
+
 
 	
 
-=======
+
 	char temp;
->>>>>>> 421d97388bc3e27ced46cf6c6a85e6bcb9d2e3b8
+
 	
 	while(fscanf(readFilePointer, "%c", &temp) == 1) {
 		if(temp == '\n') {
@@ -167,36 +167,36 @@ void getFile(int maxColSize,int *pictureColumns, int maxRowSize, int *pictureRow
 					pictureData[*pictureRows][*pictureColumns] = 'o';
 					break;
 				case 3: 
-<<<<<<< HEAD
+
 					pictureData[*pictureRows][*pictureColumns] = 'O';
 					break;
 				case 4:
 					pictureData[*pictureRows][*pictureColumns] = '0';
-=======
+
 					pictureData[*pictureColumns][*pictureRows] = 'O';
 					break;
 				case 4:
 					pictureData[*pictureColumns][*pictureRows] = '0';
->>>>>>> 421d97388bc3e27ced46cf6c6a85e6bcb9d2e3b8
+
 					break;
 				default:
 					
 					break;
 			}
-<<<<<<< HEAD
+
 			
 
 			printf("%c", pictureData[*pictureRows][*pictureColumns]);
-=======
+
 			printf("%c", pictureData[*pictureColumns][*pictureRows]);
->>>>>>> 421d97388bc3e27ced46cf6c6a85e6bcb9d2e3b8
+
 
 			*pictureRows++;
 		}
 	}
 	
 	fclose(readFilePointer);
-<<<<<<< HEAD
+
 }
 
 void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pictureRows, char pictureData[][MAX_COLUMNS]) {
@@ -208,7 +208,7 @@ void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pict
 		}
 		printf("\n");
 		
-=======
+
 
 	return;
 
@@ -253,7 +253,7 @@ void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pict
 	printf("\n");
 
 
->>>>>>> 421d97388bc3e27ced46cf6c6a85e6bcb9d2e3b8
+
 	}
 	
 } 
