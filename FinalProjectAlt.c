@@ -191,6 +191,7 @@ void brightenImage(char *File, char pictureData[][MAX_COLUMNS]){
 	
 	int pictureColumns = 0;
 	int pictureRows = 0;
+	int picR = 0;
 	
 	File[MAXFILE_SIZE] = '\0';
 	
@@ -204,6 +205,7 @@ void brightenImage(char *File, char pictureData[][MAX_COLUMNS]){
 
 			pictureColumns++;
 			pictureRows = 0;
+			picR++;
 		}
 		else{
 			pictureData[pictureRows][pictureColumns] = temp - '0';
@@ -233,10 +235,11 @@ void brightenImage(char *File, char pictureData[][MAX_COLUMNS]){
 	
 		} 
 	}
-	//fclose(readFilePointer);
-	
+	int row, column, picC;
+	picC = pictureColumns;
 	char saveFile[MAXFILE_SIZE];
 	char saveO;
+
 	
 	
 	printf("Would you like to store image in a file?(y/n): ");
@@ -249,8 +252,8 @@ void brightenImage(char *File, char pictureData[][MAX_COLUMNS]){
 		FILE *savefptr;		
 		savefptr = fopen(saveFile, "w");
 		
-		for(int row = 0; row < pictureRows; row++){
-			for(int column = 0; column < pictureColumns; column++){
+		for(row = 0; row < picR; row++){
+			for(column = 0; column < picC; column++){
 				fprintf(savefptr, "%c", pictureData[row][column]);
 				}
 			fprintf(savefptr, "\n");
@@ -264,9 +267,10 @@ void dimImage(char *File, char pictureData[][MAX_COLUMNS]){
 	char temp;
 	
 	
+	
 	int pictureColumns = 0;
 	int pictureRows = 0;
-	
+	int picR = 0;
 	File[MAXFILE_SIZE] = '\0';
 	
 	FILE *readFilePointer;
@@ -279,6 +283,7 @@ void dimImage(char *File, char pictureData[][MAX_COLUMNS]){
 
 			pictureColumns++;
 			pictureRows = 0;
+			picR++;
 		}
 		else{
 			pictureData[pictureRows][pictureColumns] = temp - '0';
@@ -305,13 +310,17 @@ void dimImage(char *File, char pictureData[][MAX_COLUMNS]){
 			}
 			printf("%c", pictureData[pictureRows][pictureColumns]);
 			pictureRows++;
-	
+			
 		} 
+		
 	}
-	//fclose(readFilePointer);
 	
+
+	int row, column, picC;
+	picC = pictureColumns;
 	char saveFile[MAXFILE_SIZE];
 	char saveO;
+
 	
 	
 	printf("Would you like to store image in a file?(y/n): ");
@@ -324,8 +333,8 @@ void dimImage(char *File, char pictureData[][MAX_COLUMNS]){
 		FILE *savefptr;		
 		savefptr = fopen(saveFile, "w");
 		
-		for(int row = 0; row < pictureRows; row++){
-			for(int column = 0; column < pictureColumns; column++){
+		for(row = 0; row < picR; row++){
+			for(column = 0; column < picC; column++){
 				fprintf(savefptr, "%c", pictureData[row][column]);
 				}
 			fprintf(savefptr, "\n");
@@ -403,6 +412,7 @@ void cropImage(char *File, char pictureData[][MAX_COLUMNS]){
 		}
 		printf("\n");
 	}
+	
 	char saveFile[MAXFILE_SIZE];
 	char saveO;
 	
@@ -427,9 +437,4 @@ void cropImage(char *File, char pictureData[][MAX_COLUMNS]){
 	return;	
 }
 
-<<<<<<< HEAD
-=======
 
-
-
->>>>>>> 293e882f3fc4b5d1ba1e863fe9d3b6553e42f862
