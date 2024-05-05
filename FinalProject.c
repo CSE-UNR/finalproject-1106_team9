@@ -9,54 +9,55 @@
 #define MAX_COLUMNS 500
 #define MAX_ROWS 500
 
-
 int getMenu();
 int editMenu();
-int cropImage();
-int dimImage();
-int brightenImage();
+void cropImage(char *File, char pictureData[][MAX_COLUMNS]);
+void dimImage(char *File, char pictureData[][MAX_COLUMNS]);
+void brightenImage(char *File, char pictureData[][MAX_COLUMNS]);
 
-void getFile(int *pictureColumns, int *pictureRows, char pictureData[][MAX_COLUMNS]);
+void getFile(char *File);
 
-void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pictureRows, char pictureData[][MAX_COLUMNS]);
+void displayImage(char *File, char pictureData[][MAX_COLUMNS]);
+
 
 int main() {
 
 	int menuChoice, editMenuOption;
-
 	
 	int columns;
 	int rows;
-
 	char mainPictureData[MAX_ROWS][MAX_COLUMNS];
+	char File[MAXFILE_SIZE];
+	char userSaveOption;
 	
-
-	int mainPictureData[MAX_COLUMNS][MAX_ROWS];
-
-
+	
 	do{
 	
 		menuChoice = getMenu();
-		
 	
 			switch(menuChoice){
 			case 1:
-				getFile(MAX_COLUMNS, &columns, MAX_ROWS, &rows, mainPictureData);
+			
+				getFile(File);
+			
 				break;
 			case 2:
-				displayImage(MAX_COLUMNS, &columns, MAX_ROWS, &rows, mainPictureData);
+				displayImage(File, mainPictureData);
 				break;
 			case 3:
 				editMenuOption = editMenu();
 				switch(editMenuOption){
 					case 1:
-						cropImage();
+						cropImage(File, mainPictureData);
+						return 0;
 						break;
 					case 2:
-						brightenImage();
+						brightenImage(File, mainPictureData);
+						return 0;
 						break;
 					case 3:
-						dimImage();
+						dimImage(File, mainPictureData);
+						return 0;
 						break;
 					default:
 						break;
@@ -68,8 +69,8 @@ int main() {
 			default:
 				printf("\nInvalid input\n\n");
 				break;
-			}
-	}while(menuChoice != 0);
+		}
+	} while(menuChoice != 0);
 	return 0;
 }
 
@@ -97,31 +98,17 @@ int editMenu(){
 	printf("(2): Increase Brightness\n");
 	printf("(3): Decrease Brightness\n");
 	printf("(0): Go back to menu\n");
-	printf("Please enter the number for the operation you would like to perform: ");
+	printf("\nPlease enter the number for the operation you would like to perform: ");
 	scanf("%d", &editMenuOption);
 	
 	return editMenuOption;
 }
 
 
-
-void getFile(int maxColSize, int *pictureColumns, int maxRowSize, int *pictureRows, char pictureData[][MAX_COLUMNS]){
-
-	
-	char File[MAXFILE_SIZE], temp;
-
-
-void getFile(int maxColSize,int *pictureColumns, int maxRowSize, int *pictureRows, int pictureData[][MAX_ROWS]){
+void getFile(char *File){
 
 	
-	char File[MAXFILE_SIZE];
-	int* columnnum = 0, rownum = 0;
-
-	
-	*pictureColumns = 0;
-	*pictureRows = 0;
-	
-
+	char temp;
 	printf("What is the name of the image file: ");
 	scanf("%s", File);
 	
@@ -131,160 +118,332 @@ void getFile(int maxColSize,int *pictureColumns, int maxRowSize, int *pictureRow
 	
 	readFilePointer = fopen(File, "r");
 	
+	
+	
 	if(readFilePointer == NULL){
 		printf("\nCould not find an image with that file name\n\n");
 		return;
+
 	}
 	else{
 		printf("\n\nImage successfully loaded!\n\n");
+		fclose(readFilePointer);
+		
 	}
+}
 
-
+void displayImage(char *File, char pictureData[][MAX_COLUMNS]) {
 	
-
-
 	char temp;
-
+	
+	
+	int pictureColumns = 0;
+	int pictureRows = 0;
+	
+	File[MAXFILE_SIZE] = '\0';
+	
+	FILE *readFilePointer;
+	
+	readFilePointer = fopen(File, "r");
 	
 	while(fscanf(readFilePointer, "%c", &temp) == 1) {
 		if(temp == '\n') {
 			printf("\n");
 
-			*pictureColumns++;
-			*pictureRows = 0;
+			pictureColumns++;
+			pictureRows = 0;
 		}
 		else{
-			pictureData[*pictureRows][*pictureColumns] = temp - '0';
+			pictureData[pictureRows][pictureColumns] = temp - '0';
 			
-			switch(pictureData[*pictureRows][*pictureColumns]) {
+			switch(pictureData[pictureRows][pictureColumns]) {
 				case 0:
-					pictureData[*pictureRows][*pictureColumns] = ' ';
+					pictureData[pictureRows][pictureColumns] = ' ';
 					break;
 				case 1:
-					pictureData[*pictureRows][*pictureColumns] = '.';
+					pictureData[pictureRows][pictureColumns] = '.';
 					break;
 				case 2:
-					pictureData[*pictureRows][*pictureColumns] = 'o';
+					pictureData[pictureRows][pictureColumns] = 'o';
 					break;
 				case 3: 
-
-					pictureData[*pictureRows][*pictureColumns] = 'O';
+					pictureData[pictureRows][pictureColumns] = 'O';
 					break;
 				case 4:
-					pictureData[*pictureRows][*pictureColumns] = '0';
-
-					pictureData[*pictureColumns][*pictureRows] = 'O';
-					break;
-				case 4:
-					pictureData[*pictureColumns][*pictureRows] = '0';
-
+					pictureData[pictureRows][pictureColumns] = '0';
 					break;
 				default:
 					
 					break;
 			}
-
-			
-
-			printf("%c", pictureData[*pictureRows][*pictureColumns]);
-
-			printf("%c", pictureData[*pictureColumns][*pictureRows]);
-
-
-			*pictureRows++;
-		}
+			printf("%c", pictureData[pictureRows][pictureColumns]);
+			pictureRows++;
+	
+		} 
 	}
-	
-	fclose(readFilePointer);
-
-}
-
-void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pictureRows, char pictureData[][MAX_COLUMNS]) {
-
-	
-	for(int rowI= 0; rowI < *pictureRows; rowI++) {
-		for(int columnI = 0; pictureData[*pictureRows][columnI] != '\n'; columnI++){
-			printf("%c", pictureData[*pictureRows][columnI]);
-		}
-		printf("\n");
-		
-
-
-	return;
-
-
-
 }
 
 
-
-void displayImage(int maxColSize, int *pictureColumns, int maxRowSize, int *pictureRows, int pictureData[][MAX_ROWS]) {
-
+void brightenImage(char *File, char pictureData[][MAX_COLUMNS]){
 	
-	int currentRow;
-	int currentColumn;
+	char temp;
+	
+	
+	int pictureColumns = 0;
+	int pictureRows = 0;
+	int picR = 0;
+	
+	File[MAXFILE_SIZE] = '\0';
+	
+	FILE *readFilePointer;
+	
+	readFilePointer = fopen(File, "r");
+	
+	while(fscanf(readFilePointer, "%c", &temp) == 1) {
 		
+		if(temp == '\n') {
+			printf("\n");
 
-	for(int currentColumn = 0; currentColumn < *pictureColumns; currentColumn++) {
-		for(int currentRow = 0; currentRow < *pictureRows; currentRow++){
-
-			printf("%c", pictureData[*pictureColumns][*pictureRows]);
-		}
-
+			pictureColumns++;
+			pictureRows = 0;
 			
-			if(pictureData[currentColumn][currentRow] == '0'){
-				printf(" ");
-			}
-			else if (pictureData[currentColumn][currentRow] == '1'){
-				printf(".");
-			}
-			else if (pictureData[currentColumn][currentRow] == '2'){
-				printf("o");
-			}
-			else if (pictureData[currentColumn][currentRow] == '3') {
-				printf("O");
-			}
-			else{
-				printf("0");
-			}
 		}
-
-	printf("%c", pictureData[*pictureColumns][*pictureRows]);
+		else{
+			pictureData[pictureRows][pictureColumns] = temp - '0';
+			
+			switch(pictureData[pictureRows][pictureColumns]) {
+				case 0:
+					pictureData[pictureRows][pictureColumns] = ' ';
+					break;
+				case 1:
+					pictureData[pictureRows][pictureColumns] = ' ';
+					break;
+				case 2:
+					pictureData[pictureRows][pictureColumns] = '.';
+					break;
+				case 3: 
+					pictureData[pictureRows][pictureColumns] = 'o';
+					break;
+				case 4:
+					pictureData[pictureRows][pictureColumns] = 'O';
+					break;
+				default:
+					
+					break;
+			}
+			printf("%c", pictureData[pictureRows][pictureColumns]);
+			pictureRows++;
+			picR++;
+		} 	
+		
+	}
 	printf("\n");
-
-
-
-	}
+	picR /= pictureColumns;
 	
-} 
+	int row, column, picC;
+	picC = pictureColumns;
+	char saveFile[MAXFILE_SIZE];
+	char saveO;
 
+	
+	
+	printf("Would you like to store image in a file?(y/n): ");
+	scanf(" %c", &saveO);
+	
+	if(saveO == 'y'){
+		printf("What do you want to name the image file? ");
+		scanf("%s", saveFile);
+		saveFile[MAXFILE_SIZE] = '\0';	
+		FILE *savefptr;		
+		savefptr = fopen(saveFile, "w");
+		
+		for(row = 0; row < picC; row++){
+			for(column = 0; column < picR; column++){
+				fprintf(savefptr, "%c", pictureData[column][row]);
+				}
+			fprintf(savefptr, "\n");
+			}
+	}
+	return;
+}
 
-int brightenImage(){
-	return 0;
+void dimImage(char *File, char pictureData[][MAX_COLUMNS]){
+	
+	char temp;
+	
+	
+	
+	int pictureColumns = 0;
+	int pictureRows = 0;
+	int picR = 0;
+	
+	File[MAXFILE_SIZE] = '\0';
+	
+	FILE *readFilePointer;
+	
+	readFilePointer = fopen(File, "r");
+	
+	
+	while(fscanf(readFilePointer, "%c", &temp) == 1) {
+		if(temp == '\n') {
+			printf("\n");
+
+			pictureColumns++;
+			pictureRows = 0;
+		}
+		else{
+			pictureData[pictureRows][pictureColumns] = temp - '0';
+			
+			switch(pictureData[pictureRows][pictureColumns]) {
+				case 0:
+					pictureData[pictureRows][pictureColumns] = '.';
+					break;
+				case 1:
+					pictureData[pictureRows][pictureColumns] = 'o';
+					break;
+				case 2:
+					pictureData[pictureRows][pictureColumns] = 'O';
+					break;
+				case 3: 
+					pictureData[pictureRows][pictureColumns] = '0';
+					break;
+				case 4:
+					pictureData[pictureRows][pictureColumns] = '0';
+					break;
+				default:
+					
+					break;
+				
+			}
+			printf("%c", pictureData[pictureRows][pictureColumns]);
+			pictureRows++;
+			picR++;
+			
+		} 
+		
+	}
+	printf("\n");
+	picR /= pictureColumns;
+
+	int row, column;
+	char saveFile[MAXFILE_SIZE];
+	char saveO;
+
+	int picC = pictureColumns;
+	
+	
+	printf("Would you like to store image in a file?(y/n): ");
+	scanf(" %c", &saveO);
+	
+	if(saveO == 'y'){
+		printf("What do you want to name the image file? ");
+		scanf("%s", saveFile);
+		saveFile[MAXFILE_SIZE] = '\0';	
+		FILE *savefptr;		
+		savefptr = fopen(saveFile, "w");
+		
+		for(row = 0; row < picC; row++){
+			for(column = 0; column < picR; column++){
+				fprintf(savefptr, "%c", pictureData[column][row]);
+				}
+			fprintf(savefptr, "\n");
+			}
+	}
+		
+	
+	return;
 }
 
 
 
-int dimImage(){
-	return 0;
-}
 
-
-
-
-int cropImage(){ 
+void cropImage(char *File, char pictureData[][MAX_COLUMNS]){ 
 	int leftBound, rightBound, topBound, bottomBound;
 	
-	printf("\n\nPlease enter how much you would like to remove from the left side of the image: ");
+	printf("\n\nPlease enter your left boundry(value must be atleast 1): ");
 	scanf("%d", &leftBound);
-	printf("\nPlease enter how much you would like to remove from the right side of the image: ");
+	printf("\nPlease enter your right boundry(value must be greater than value for your left boundy): ");
 	scanf("%d", &rightBound);
-	printf("\nPlease enter how much you would like to remove from the top of the image: ");
+	printf("\nPlease enter your upper boundry(value must be atleast 1): ");
 	scanf("%d", &topBound);
-	printf("\nPlease enter how much you would like to remove from the bottom of the image: ");
+	printf("\nPlease enter your lower boundry(value must be greater than your upper boundry): ");
 	scanf("%d", &bottomBound);
-	printf("\nYou have chosen to remove %d from the left side, %d from the right side, %d from the top, and %d from the bottom.\nHere is your croped image:\n", leftBound, rightBound, topBound, bottomBound);
 	
-	return 0;	
+	char temp;
+	
+	
+	
+	int pictureColumns = 0;
+	int pictureRows = 0;
+	
+	File[MAXFILE_SIZE] = '\0';
+	
+	FILE *readFilePointer;
+	
+	readFilePointer = fopen(File, "r");
+	
+	while(fscanf(readFilePointer, "%c", &temp) == 1) {
+		if(temp == '\n') {
+
+			pictureColumns++;
+			pictureRows = 0;
+		}
+		else{
+			pictureData[pictureRows][pictureColumns] = temp - '0';
+			
+			switch(pictureData[pictureRows][pictureColumns]) {
+				case 0:
+					pictureData[pictureRows][pictureColumns] = ' ';
+					break;
+				case 1:
+					pictureData[pictureRows][pictureColumns] = '.';
+					break;
+				case 2:
+					pictureData[pictureRows][pictureColumns] = 'o';
+					break;
+				case 3: 
+					pictureData[pictureRows][pictureColumns] = 'O';
+					break;
+				case 4:
+					pictureData[pictureRows][pictureColumns] = '0';
+					break;
+				default:
+					
+					break;
+			}
+			pictureRows++;
+	
+		} 
+	}
+	for(int topI = topBound-1; topI < bottomBound; topI++){
+		for(int leftI = leftBound-1; leftI < rightBound; leftI++){
+			printf("%c", pictureData[leftI][topI]);
+		}
+		printf("\n");
+	}
+	
+	char saveFile[MAXFILE_SIZE];
+	char saveO;
+	
+	
+	printf("Would you like to store image in a file?(y/n): ");
+	scanf(" %c", &saveO);
+	
+	if(saveO == 'y'){
+		printf("What do you want to name the image file? ");
+		scanf("%s", saveFile);
+		saveFile[MAXFILE_SIZE] = '\0';	
+		FILE *savefptr;		
+		savefptr = fopen(saveFile, "w");
+		for(int topI = topBound-1; topI < bottomBound; topI++){
+			for(int leftI = leftBound-1; leftI < rightBound; leftI++){
+				fprintf(savefptr, "%c", pictureData[leftI][topI]);
+				}
+			fprintf(savefptr, "\n");
+			}
+	}
+		
+	return;	
 }
+
 

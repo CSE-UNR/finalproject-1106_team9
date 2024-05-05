@@ -200,12 +200,13 @@ void brightenImage(char *File, char pictureData[][MAX_COLUMNS]){
 	readFilePointer = fopen(File, "r");
 	
 	while(fscanf(readFilePointer, "%c", &temp) == 1) {
+		
 		if(temp == '\n') {
 			printf("\n");
 
 			pictureColumns++;
 			pictureRows = 0;
-			picR++;
+			
 		}
 		else{
 			pictureData[pictureRows][pictureColumns] = temp - '0';
@@ -232,9 +233,12 @@ void brightenImage(char *File, char pictureData[][MAX_COLUMNS]){
 			}
 			printf("%c", pictureData[pictureRows][pictureColumns]);
 			pictureRows++;
-	
-		} 
+			picR++;
+		} 	
+		
 	}
+	picR /= pictureColumns;
+	
 	int row, column, picC;
 	picC = pictureColumns;
 	char saveFile[MAXFILE_SIZE];
@@ -252,8 +256,8 @@ void brightenImage(char *File, char pictureData[][MAX_COLUMNS]){
 		FILE *savefptr;		
 		savefptr = fopen(saveFile, "w");
 		
-		for(row = 0; row < picR; row++){
-			for(column = 0; column < picC; column++){
+		for(row = 0; row < picC; row++){
+			for(column = 0; column < picR; column++){
 				fprintf(savefptr, "%c", pictureData[column][row]);
 				}
 			fprintf(savefptr, "\n");
@@ -271,11 +275,13 @@ void dimImage(char *File, char pictureData[][MAX_COLUMNS]){
 	int pictureColumns = 0;
 	int pictureRows = 0;
 	int picR = 0;
+	
 	File[MAXFILE_SIZE] = '\0';
 	
 	FILE *readFilePointer;
 	
 	readFilePointer = fopen(File, "r");
+	
 	
 	while(fscanf(readFilePointer, "%c", &temp) == 1) {
 		if(temp == '\n') {
@@ -283,7 +289,6 @@ void dimImage(char *File, char pictureData[][MAX_COLUMNS]){
 
 			pictureColumns++;
 			pictureRows = 0;
-			picR++;
 		}
 		else{
 			pictureData[pictureRows][pictureColumns] = temp - '0';
@@ -307,20 +312,22 @@ void dimImage(char *File, char pictureData[][MAX_COLUMNS]){
 				default:
 					
 					break;
+				
 			}
 			printf("%c", pictureData[pictureRows][pictureColumns]);
 			pictureRows++;
+			picR++;
 			
 		} 
 		
 	}
-	
+	picR /= pictureColumns;
 
-	int row, column, picC;
-	picC = pictureColumns;
+	int row, column;
 	char saveFile[MAXFILE_SIZE];
 	char saveO;
 
+	int picC = pictureColumns;
 	
 	
 	printf("Would you like to store image in a file?(y/n): ");
@@ -333,8 +340,8 @@ void dimImage(char *File, char pictureData[][MAX_COLUMNS]){
 		FILE *savefptr;		
 		savefptr = fopen(saveFile, "w");
 		
-		for(row = 0; row < picR; row++){
-			for(column = 0; column < picC; column++){
+		for(row = 0; row < picC; row++){
+			for(column = 0; column < picR; column++){
 				fprintf(savefptr, "%c", pictureData[column][row]);
 				}
 			fprintf(savefptr, "\n");
