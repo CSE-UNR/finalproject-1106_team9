@@ -233,6 +233,29 @@ void brightenImage(char *File, char pictureData[][MAX_COLUMNS]){
 	
 		} 
 	}
+	//fclose(readFilePointer);
+	
+	char saveFile[MAXFILE_SIZE];
+	char saveO;
+	
+	
+	printf("Would you like to store image in a file?(y/n): ");
+	scanf(" %c", &saveO);
+	
+	if(saveO == 'y'){
+		printf("What do you want to name the image file? ");
+		scanf("%s", saveFile);
+		saveFile[MAXFILE_SIZE] = '\0';	
+		FILE *savefptr;		
+		savefptr = fopen(saveFile, "w");
+		
+		for(int row = 0; row < pictureRows; row++){
+			for(int column = 0; column < pictureColumns; column++){
+				fprintf(savefptr, "%c", pictureData[row][column]);
+				}
+			fprintf(savefptr, "\n");
+			}
+	}
 	return;
 }
 
@@ -285,6 +308,31 @@ void dimImage(char *File, char pictureData[][MAX_COLUMNS]){
 	
 		} 
 	}
+	//fclose(readFilePointer);
+	
+	char saveFile[MAXFILE_SIZE];
+	char saveO;
+	
+	
+	printf("Would you like to store image in a file?(y/n): ");
+	scanf(" %c", &saveO);
+	
+	if(saveO == 'y'){
+		printf("What do you want to name the image file? ");
+		scanf("%s", saveFile);
+		saveFile[MAXFILE_SIZE] = '\0';	
+		FILE *savefptr;		
+		savefptr = fopen(saveFile, "w");
+		
+		for(int row = 0; row < pictureRows; row++){
+			for(int column = 0; column < pictureColumns; column++){
+				fprintf(savefptr, "%c", pictureData[row][column]);
+				}
+			fprintf(savefptr, "\n");
+			}
+	}
+		
+	
 	return;
 }
 
@@ -379,3 +427,9 @@ void cropImage(char *File, char pictureData[][MAX_COLUMNS]){
 	return;	
 }
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 293e882f3fc4b5d1ba1e863fe9d3b6553e42f862
