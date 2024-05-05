@@ -254,7 +254,7 @@ void brightenImage(char *File, char pictureData[][MAX_COLUMNS]){
 		
 		for(row = 0; row < picR; row++){
 			for(column = 0; column < picC; column++){
-				fprintf(savefptr, "%c", pictureData[row][column]);
+				fprintf(savefptr, "%c", pictureData[column][row]);
 				}
 			fprintf(savefptr, "\n");
 			}
@@ -335,7 +335,7 @@ void dimImage(char *File, char pictureData[][MAX_COLUMNS]){
 		
 		for(row = 0; row < picR; row++){
 			for(column = 0; column < picC; column++){
-				fprintf(savefptr, "%c", pictureData[row][column]);
+				fprintf(savefptr, "%c", pictureData[column][row]);
 				}
 			fprintf(savefptr, "\n");
 			}
