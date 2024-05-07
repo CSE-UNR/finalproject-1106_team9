@@ -213,19 +213,19 @@ void brightenImage(char *File, char pictureData[][MAX_COLUMNS]){
 			
 			switch(pictureData[pictureRows][pictureColumns]) {
 				case 0:
-					pictureData[pictureRows][pictureColumns] = ' ';
-					break;
-				case 1:
-					pictureData[pictureRows][pictureColumns] = ' ';
-					break;
-				case 2:
 					pictureData[pictureRows][pictureColumns] = '.';
 					break;
-				case 3: 
+				case 1:
 					pictureData[pictureRows][pictureColumns] = 'o';
 					break;
-				case 4:
+				case 2:
 					pictureData[pictureRows][pictureColumns] = 'O';
+					break;
+				case 3: 
+					pictureData[pictureRows][pictureColumns] = '0';
+					break;
+				case 4:
+					pictureData[pictureRows][pictureColumns] = '0';
 					break;
 				default:
 					
@@ -296,19 +296,19 @@ void dimImage(char *File, char pictureData[][MAX_COLUMNS]){
 			
 			switch(pictureData[pictureRows][pictureColumns]) {
 				case 0:
-					pictureData[pictureRows][pictureColumns] = '.';
+					pictureData[pictureRows][pictureColumns] = ' ';
 					break;
 				case 1:
-					pictureData[pictureRows][pictureColumns] = 'o';
+					pictureData[pictureRows][pictureColumns] = ' ';
 					break;
 				case 2:
-					pictureData[pictureRows][pictureColumns] = 'O';
+					pictureData[pictureRows][pictureColumns] = '.';
 					break;
 				case 3: 
-					pictureData[pictureRows][pictureColumns] = '0';
+					pictureData[pictureRows][pictureColumns] = 'o';
 					break;
 				case 4:
-					pictureData[pictureRows][pictureColumns] = '0';
+					pictureData[pictureRows][pictureColumns] = 'O';
 					break;
 				default:
 					
